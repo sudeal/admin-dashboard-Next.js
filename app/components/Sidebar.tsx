@@ -20,7 +20,6 @@ const topItems: NavItem[] = [
   { label: "Favorites", icon: "bi-heart", href: "/favorites" },
   { label: "Inbox", icon: "bi-chat-left", href: "/inbox" },
   { label: "Order Lists", icon: "bi-card-checklist", href: "/orders" },
-  { label: "Order Details", icon: "bi-file-text", href: "/order-details" },
   { label: "Product Stock", icon: "bi-list-check", href: "/stock" },
 ];
 
@@ -40,7 +39,8 @@ export default function Sidebar({
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
+    // "/orders" aktifken "/orders/00001" de aktif say
+    return pathname === href || pathname.startsWith(`${href}/`) || pathname.startsWith(href);
   };
 
   return (
@@ -67,7 +67,9 @@ export default function Sidebar({
                 className={`ds-nav__link ${isActive(item.href) ? "is-active" : ""}`}
               >
                 <i className={`bi ${item.icon} ds-nav__icon`} />
-                {!isCollapsed && <span className="ds-nav__text">{item.label}</span>}
+                {!isCollapsed && (
+                  <span className="ds-nav__text">{item.label}</span>
+                )}
               </Link>
             </li>
           ))}
@@ -85,7 +87,9 @@ export default function Sidebar({
                 className={`ds-nav__link ${isActive(item.href) ? "is-active" : ""}`}
               >
                 <i className={`bi ${item.icon} ds-nav__icon`} />
-                {!isCollapsed && <span className="ds-nav__text">{item.label}</span>}
+                {!isCollapsed && (
+                  <span className="ds-nav__text">{item.label}</span>
+                )}
               </Link>
             </li>
           ))}

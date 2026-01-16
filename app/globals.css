@@ -1534,6 +1534,701 @@ body {
   }
 }
 
+.td-page {
+  width: 100%;
+}
+
+.td-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.td-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: #111827;
+}
+
+.td-add {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ❗ Artık textbox kaldırıldığı için bu class kullanılmayacak.
+   İstersen silebilirsin ama kalsa da sorun olmaz. */
+.td-input {
+  width: 320px;
+  height: 36px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #eef0f5;
+  padding: 0 12px;
+  outline: none;
+  font-size: 13px;
+  color: #111827;
+}
+
+.td-add-btn {
+  height: 36px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 10px;
+  background: #2f6ef2;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.td-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.td-item {
+  height: 56px;
+  background: #ffffff;
+  border: 1px solid #eef0f5;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(17, 24, 39, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 14px;
+  transition: background 0.15s ease;
+}
+
+/* ✅ sabit değil: hover’da mavi */
+.td-item:hover {
+  background: #2f6ef2;
+}
+
+.td-item:hover .td-text {
+  color: #ffffff;
+}
+
+.td-item:hover .td-check {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.td-item:hover .td-icon i {
+  color: #ffffff;
+}
+
+.td-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid #d1d5db;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.td-check i {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.td-check.is-checked {
+  background: #2f6ef2;
+  border-color: #2f6ef2;
+}
+
+.td-item:hover .td-check.is-checked {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.td-text {
+  flex: 1;
+  font-weight: 800;
+  font-size: 13px;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.td-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.td-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid #eef0f5;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.td-icon i {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.td-icon.is-starred i {
+  color: #f59e0b;
+}
+
+.td-icon--danger i {
+  color: #ef4444;
+}
+
+/* done görünümü */
+.td-item.is-done .td-text {
+  color: #6b7280;
+  text-decoration: line-through;
+}
+
+.td-empty {
+  text-align: center;
+  padding: 18px 0;
+  color: #6b7280;
+  font-weight: 800;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .td-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .td-add {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .td-input {
+    width: 100%;
+  }
+
+  .td-add-btn {
+    width: 100%;
+  }
+}
+
+/* =========================
+   TODO MODAL (EKLENDİ)
+========================= */
+
+.td-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 9999;
+}
+
+.td-modal {
+  width: 440px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(17, 24, 39, 0.25);
+  overflow: hidden;
+}
+
+.td-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eef0f5;
+}
+
+.td-modal__title {
+  font-size: 18px;
+  font-weight: 900;
+  color: #111827;
+}
+
+.td-modal__close {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid #eef0f5;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.td-modal__close i {
+  font-size: 18px;
+  color: #6b7280;
+}
+
+.td-modal__body {
+  padding: 16px;
+}
+
+.td-modal__label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.td-modal__input {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #f3f4f6;
+  padding: 0 12px;
+  outline: none;
+  font-size: 13px;
+  color: #111827;
+}
+
+.td-modal__footer {
+  padding: 14px 16px;
+  border-top: 1px solid #eef0f5;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.td-modal__btn {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.td-modal__btn--ghost {
+  background: #ffffff;
+  border-color: #eef0f5;
+  color: #6b7280;
+}
+
+.td-modal__btn--primary {
+  background: #7aa2ff;
+  color: #ffffff;
+}
+
+/* =========================
+   PRICING
+========================= */
+.pr-page {
+  width: 100%;
+}
+
+/* başlık kalsın */
+.pr-title {
+  margin: 0 0 14px 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: #111827;
+}
+
+/* ✅ grid artık sayfaya yayılıyor */
+.pr-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+
+  width: 100%;
+  max-width: none;          /* ✅ 900px sınırı kalktı */
+  margin: 0;                /* ✅ ortalama yok */
+  padding: 0 6px;           /* ✅ sağ/sol az boşluk (istediğin gibi yapışık) */
+}
+
+.pr-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #eef0f5;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(17, 24, 39, 0.08);
+  padding: 24px 20px 20px;
+  min-height: 640px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pr-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(59, 130, 246, 0.18), transparent 40%),
+    radial-gradient(circle at 75% 35%, rgba(59, 130, 246, 0.12), transparent 45%),
+    repeating-linear-gradient(
+      135deg,
+      rgba(17, 24, 39, 0.04) 0px,
+      rgba(17, 24, 39, 0.04) 1px,
+      transparent 1px,
+      transparent 14px
+    );
+}
+
+.pr-head {
+  position: relative;
+  text-align: center;
+  padding-top: 12px;
+}
+
+.pr-name {
+  font-size: 15px;
+  font-weight: 900;
+  color: #111827;
+}
+
+.pr-sub {
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6b7280;
+}
+
+.pr-price {
+  margin-top: 12px;
+  font-size: 38px;
+  font-weight: 900;
+  color: #3b82f6;
+  letter-spacing: -0.5px;
+}
+
+.pr-divider {
+  position: relative;
+  margin: 24px 0 20px;
+  height: 1px;
+  background: #eef0f5;
+}
+
+.pr-features {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pr-feature {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.pr-feature.is-on {
+  color: #111827;
+}
+
+.pr-feature.is-off {
+  color: rgba(107, 114, 128, 0.45);
+}
+
+.pr-footer {
+  position: relative;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 8px;
+}
+
+.pr-btn {
+  height: 40px;
+  min-width: 140px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1.5px solid #3b82f6;
+  background: transparent;
+  color: #3b82f6;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.pr-btn:hover {
+  background: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+
+.pr-btn.is-filled {
+  background: #2f6ef2;
+  border-color: #2f6ef2;
+  color: #ffffff;
+}
+
+.pr-btn.is-filled:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.pr-trial {
+  font-size: 13px;
+  font-weight: 900;
+  color: #111827;
+}
+
+/* ✅ 2 kolona düşerken de sayfaya yayılır */
+@media (max-width: 1100px) {
+  .pr-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0 6px;
+  }
+}
+
+/* ✅ mobilde tek kolon, yine kenarlara yakın */
+@media (max-width: 640px) {
+  .pr-grid {
+    grid-template-columns: 1fr;
+    padding: 0 6px;
+    gap: 16px;
+  }
+
+  .pr-card {
+    min-height: 600px;
+  }
+}
+
+/* =========================
+   CONTACT - Add New Contact
+========================= */
+.ct-page {
+  width: 100%;
+}
+
+.ct-title {
+  margin: 0 0 14px 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: #111827;
+}
+
+.ct-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #eef0f5;
+  border-radius: 16px;
+  box-shadow: 0 14px 30px rgba(17, 24, 39, 0.08);
+  padding: 40px 32px;
+}
+
+.ct-form {
+  width: 100%;
+}
+
+.ct-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 28px;
+}
+
+.ct-photo-btn {
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  border: 1px solid #eef0f5;
+  background: #f3f4f6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.ct-photo-icon i {
+  font-size: 32px;
+  color: #6b7280;
+}
+
+.ct-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ct-photo-link {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.ct-hidden-file {
+  display: none;
+}
+
+.ct-grid {
+  max-width: 50%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 24px;
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ct-label {
+  font-size: 14px;
+  font-weight: 900;
+  color: #111827;
+}
+
+.ct-input,
+.ct-select {
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #f3f4f6;
+  padding: 0 16px;
+  outline: none;
+  font-size: 15px;
+  color: #111827;
+}
+
+.ct-input::placeholder {
+  color: #9ca3af;
+  font-weight: 700;
+}
+
+.ct-input-icon {
+  position: relative;
+  width: 100%;
+}
+
+.ct-input--withicon {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.ct-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.ct-select-wrap {
+  position: relative;
+}
+
+.ct-select {
+  width: 100%;
+  appearance: none;
+  padding-right: 46px;
+}
+
+.ct-select-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+  font-size: 16px;
+}
+
+.ct-actions {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+.ct-submit {
+  height: 40px;
+  width: 80px;
+  border: none;
+  border-radius: 10px;
+  background: #2f6ef2;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ct-submit:hover {
+  background: #2563eb;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ct-card {
+    padding: 28px 20px;
+  }
+
+  .ct-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 20px;
+  }
+
+  .ct-photo-btn {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ct-photo-icon i {
+    font-size: 28px;
+  }
+
+  .ct-input,
+  .ct-select {
+    height: 46px;
+    font-size: 14px;
+  }
+
+  .ct-submit {
+    height: 38px;
+    width: 70px;
+    font-size: 13px;
+  }
+}
+
+
+
+
+
+
 
 
 
