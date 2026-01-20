@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
+import { ThemeProvider } from "../contexts/ThemeContext";
 
 export default function DashboardLayout({
   children,
@@ -25,24 +26,26 @@ export default function DashboardLayout({
   };
 
   return (
-    <main className="min-h-screen bg-white">
-      <div className="ds-layout">
-        <div
-          className={`ds-sidebar-overlay ${sidebarOpen ? "is-active" : ""}`}
-          onClick={closeSidebar}
-        />
-
-        <Sidebar isOpen={sidebarOpen} isCollapsed={sidebarCollapsed} />
-
-        <section className="ds-main">
-          <Header
-            onMenuClick={toggleSidebar}
-            onMenuClickDesktop={toggleSidebarCollapsed}
+    <ThemeProvider>
+      <main className="min-h-screen bg-white dark:bg-gray-900">
+        <div className="ds-layout">
+          <div
+            className={`ds-sidebar-overlay ${sidebarOpen ? "is-active" : ""}`}
+            onClick={closeSidebar}
           />
 
-          <div className="ds-content">{children}</div>
-        </section>
-      </div>
-    </main>
+          <Sidebar isOpen={sidebarOpen} isCollapsed={sidebarCollapsed} />
+
+          <section className="ds-main">
+            <Header
+              onMenuClick={toggleSidebar}
+              onMenuClickDesktop={toggleSidebarCollapsed}
+            />
+
+            <div className="ds-content">{children}</div>
+          </section>
+        </div>
+      </main>
+    </ThemeProvider>
   );
 }
