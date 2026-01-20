@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Admin Dashboard",
   description: "Modern admin dashboard built with Next.js",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
