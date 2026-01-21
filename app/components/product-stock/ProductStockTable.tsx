@@ -3,10 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ProductStockItem } from "@/app/services/product-stock.service";
 import { getProductStock } from "@/app/services/product-stock.service";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 export default function ProductStockTable() {
   const [items, setItems] = useState<ProductStockItem[]>([]);
   const [query, setQuery] = useState("");
+  const { t } = useLanguage();
 
   useEffect(() => {
     getProductStock().then(setItems);
@@ -21,13 +23,13 @@ export default function ProductStockTable() {
   return (
     <div className="ps-page">
       <div className="ps-topbar">
-        <h1 className="ps-page-title">Product Stock</h1>
+        <h1 className="ps-page-title">{t("productStock")}</h1>
 
         <div className="ps-search">
           <i className="bi bi-search ps-search__icon" />
           <input
             className="ps-search__input"
-            placeholder="Search product name"
+            placeholder={t("searchProductName")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -39,13 +41,13 @@ export default function ProductStockTable() {
           <table className="ps-table">
             <thead>
               <tr>
-                <th style={{ width: 120 }}>Image</th>
-                <th>Product Name</th>
-                <th style={{ width: 170 }}>Category</th>
-                <th style={{ width: 140 }}>Price</th>
-                <th style={{ width: 120 }}>Piece</th>
-                <th style={{ width: 220 }}>Available Color</th>
-                <th style={{ width: 140, textAlign: "right" }}>Action</th>
+                <th style={{ width: 120 }}>{t("image")}</th>
+                <th>{t("productName")}</th>
+                <th style={{ width: 170 }}>{t("category")}</th>
+                <th style={{ width: 140 }}>{t("price")}</th>
+                <th style={{ width: 120 }}>{t("piece")}</th>
+                <th style={{ width: 220 }}>{t("availableColor")}</th>
+                <th style={{ width: 140, textAlign: "right" }}>{t("action")}</th>
               </tr>
             </thead>
 

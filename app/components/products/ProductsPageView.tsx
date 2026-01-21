@@ -1,11 +1,24 @@
-import { getProductStock } from "@/app/services/product-stock.service";
+"use client";
 
-export default async function ProductsPage() {
-  const products = await getProductStock(); 
+import { useEffect, useState } from "react";
+import { getProductStock, ProductStockItem } from "@/app/services/product-stock.service";
+import { useLanguage } from "@/app/contexts/LanguageContext";
+
+export default function ProductsPage() {
+  const { t } = useLanguage();
+  const [products, setProducts] = useState<ProductStockItem[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProductStock();
+      setProducts(data);
+    };
+    fetchProducts();
+  }, []); 
 
   return (
     <div className="ds-products">
-      <h1 className="ds-page-title">Products</h1>
+      <h1 className="ds-page-title">{t("products")}</h1>
 
       <div className="ds-promo">
         
@@ -84,7 +97,7 @@ export default async function ProductsPage() {
               </div>
 
               <button className="p-edit-btn" type="button">
-                Edit Product
+                {t("editProduct")}
               </button>
             </div>
           </div>

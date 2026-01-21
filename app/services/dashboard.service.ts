@@ -1,6 +1,6 @@
 export type DashboardStat = {
     id: string;
-    title: string;        
+    titleKey: string;        
     value: string;        
     deltaText: string;    
     deltaType: "up" | "down";
@@ -13,7 +13,7 @@ export type DashboardStat = {
     return [
       {
         id: "users",
-        title: "Total User",
+        titleKey: "totalUsers",
         value: "40,689",
         deltaText: "8.5% Up from yesterday",
         deltaType: "up",
@@ -22,7 +22,7 @@ export type DashboardStat = {
       },
       {
         id: "orders",
-        title: "Total Order",
+        titleKey: "totalOrders",
         value: "10293",
         deltaText: "1.3% Up from past week",
         deltaType: "up",
@@ -31,7 +31,7 @@ export type DashboardStat = {
       },
       {
         id: "sales",
-        title: "Total Sales",
+        titleKey: "totalSales",
         value: "$89,000",
         deltaText: "4.3% Down from yesterday",
         deltaType: "down",
@@ -40,7 +40,7 @@ export type DashboardStat = {
       },
       {
         id: "pending",
-        title: "Total Pending",
+        titleKey: "totalPending",
         value: "2040",
         deltaText: "1.8% Up from yesterday",
         deltaType: "up",

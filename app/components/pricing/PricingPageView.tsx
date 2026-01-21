@@ -1,52 +1,57 @@
+"use client";
+
+import { useLanguage } from "@/app/contexts/LanguageContext";
+
 export default function PricingPage() {
-    const plans = [
-      {
-        name: "Basic",
-        price: "$14.99",
-        features: [
-          { text: "Free Setup", active: true },
-          { text: "Bandwidth Limit 10 GB", active: true },
-          { text: "20 User Connection", active: true },
-          { text: "Analytics Report", active: false },
-          { text: "Public API Access", active: false },
-          { text: "Plugins Integration", active: false },
-          { text: "Custom Content Management", active: false },
-        ],
-        ctaFilled: false,
-      },
-      {
-        name: "Standard",
-        price: "$49.99",
-        features: [
-          { text: "Free Setup", active: true },
-          { text: "Bandwidth Limit 10 GB", active: true },
-          { text: "20 User Connection", active: true },
-          { text: "Analytics Report", active: true },
-          { text: "Public API Access", active: true },
-          { text: "Plugins Integration", active: false },
-          { text: "Custom Content Management", active: false },
-        ],
-        ctaFilled: false,
-      },
-      {
-        name: "Premium",
-        price: "$89.99",
-        features: [
-          { text: "Free Setup", active: true },
-          { text: "Bandwidth Limit 10 GB", active: true },
-          { text: "20 User Connection", active: true },
-          { text: "Analytics Report", active: true },
-          { text: "Public API Access", active: true },
-          { text: "Plugins Integration", active: true },
-          { text: "Custom Content Management", active: true },
-        ],
-        ctaFilled: false,
-      },
-    ] as const;
+  const { t } = useLanguage();
+  const plans = [
+    {
+      name: t("basic"),
+      price: "$14.99",
+      features: [
+        { text: t("freeSetup"), active: true },
+        { text: t("bandwidthLimit"), active: true },
+        { text: t("userConnection"), active: true },
+        { text: t("analyticsReport"), active: false },
+        { text: t("publicApiAccess"), active: false },
+        { text: t("pluginsIntegration"), active: false },
+        { text: t("customContentManagement"), active: false },
+      ],
+      ctaFilled: false,
+    },
+    {
+      name: t("standard"),
+      price: "$49.99",
+      features: [
+        { text: t("freeSetup"), active: true },
+        { text: t("bandwidthLimit"), active: true },
+        { text: t("userConnection"), active: true },
+        { text: t("analyticsReport"), active: true },
+        { text: t("publicApiAccess"), active: true },
+        { text: t("pluginsIntegration"), active: false },
+        { text: t("customContentManagement"), active: false },
+      ],
+      ctaFilled: false,
+    },
+    {
+      name: t("premium"),
+      price: "$89.99",
+      features: [
+        { text: t("freeSetup"), active: true },
+        { text: t("bandwidthLimit"), active: true },
+        { text: t("userConnection"), active: true },
+        { text: t("analyticsReport"), active: true },
+        { text: t("publicApiAccess"), active: true },
+        { text: t("pluginsIntegration"), active: true },
+        { text: t("customContentManagement"), active: true },
+      ],
+      ctaFilled: false,
+    },
+  ] as const;
   
     return (
       <div className="pr-page">
-        <h1 className="pr-title">Pricing</h1>
+        <h1 className="pr-title">{t("pricing")}</h1>
   
         <div className="pr-grid">
           {plans.map((p) => (
@@ -58,7 +63,7 @@ export default function PricingPage() {
   
               <div className="pr-head">
                 <div className="pr-name">{p.name}</div>
-                <div className="pr-sub">Monthly Charge</div>
+                <div className="pr-sub">{t("monthlyCharge")}</div>
                 <div className="pr-price">{p.price}</div>
               </div>
   
@@ -80,10 +85,10 @@ export default function PricingPage() {
                   type="button"
                   className={`pr-btn ${p.ctaFilled ? "is-filled" : ""}`}
                 >
-                  Get Started
+                  {t("getStarted")}
                 </button>
-  
-                <div className="pr-trial">Start Your 30 Day Free Trial</div>
+
+                <div className="pr-trial">{t("startFreeTrial")}</div>
               </div>
             </div>
           ))}

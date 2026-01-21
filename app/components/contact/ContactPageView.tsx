@@ -1,11 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 type Gender = "Male" | "Female" | "Other";
 
 export default function ContactPageView() {
   const fileRef = useRef<HTMLInputElement | null>(null);
+  const { t } = useLanguage();
 
   const [photoPreview, setPhotoPreview] = useState<string>("");
   const [form, setForm] = useState({
@@ -39,7 +41,7 @@ export default function ContactPageView() {
 
   return (
     <div className="ct-page">
-      <h1 className="ct-title">Add New Contact</h1>
+      <h1 className="ct-title">{t("addNewContact")}</h1>
 
       <div className="ct-card">
         <form className="ct-form" onSubmit={onSubmit}>
@@ -62,7 +64,7 @@ export default function ContactPageView() {
             </button>
 
             <button type="button" className="ct-photo-link" onClick={openFilePicker}>
-              Upload Photo
+              {t("uploadPhoto")}
             </button>
 
             <input
@@ -77,48 +79,48 @@ export default function ContactPageView() {
           
           <div className="ct-grid">
             <div className="ct-field">
-              <label className="ct-label">First Name</label>
+              <label className="ct-label">{t("firstName")}</label>
               <input
                 className="ct-input"
-                placeholder="Enter your first name"
+                placeholder={t("firstName").toLowerCase()}
                 value={form.firstName}
                 onChange={onChange("firstName")}
               />
             </div>
 
             <div className="ct-field">
-              <label className="ct-label">Last Name</label>
+              <label className="ct-label">{t("lastName")}</label>
               <input
                 className="ct-input"
-                placeholder="Enter your last name"
+                placeholder={t("lastName").toLowerCase()}
                 value={form.lastName}
                 onChange={onChange("lastName")}
               />
             </div>
 
             <div className="ct-field">
-              <label className="ct-label">Your email</label>
+              <label className="ct-label">{t("email")}</label>
               <input
                 className="ct-input"
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t("email").toLowerCase()}
                 value={form.email}
                 onChange={onChange("email")}
               />
             </div>
 
             <div className="ct-field">
-              <label className="ct-label">Phone Number</label>
+              <label className="ct-label">{t("phone")}</label>
               <input
                 className="ct-input"
-                placeholder="Enter your phone number"
+                placeholder={t("phone").toLowerCase()}
                 value={form.phone}
                 onChange={onChange("phone")}
               />
             </div>
 
             <div className="ct-field">
-              <label className="ct-label">Date of Birth</label>
+              <label className="ct-label">{t("dateOfBirth")}</label>
               <div className="ct-input-icon">
                 <input
                   className="ct-input ct-input--withicon"
@@ -131,12 +133,12 @@ export default function ContactPageView() {
             </div>
 
             <div className="ct-field">
-              <label className="ct-label">Gender</label>
+              <label className="ct-label">{t("gender")}</label>
               <div className="ct-select-wrap">
                 <select className="ct-select" value={form.gender} onChange={onChange("gender")}>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                  <option value="Male">{t("male")}</option>
+                  <option value="Female">{t("female")}</option>
+                  <option value="Other">{t("other")}</option>
                 </select>
                 <i className="bi bi-chevron-down ct-select-icon" />
               </div>
@@ -146,7 +148,7 @@ export default function ContactPageView() {
          
           <div className="ct-actions">
             <button className="ct-submit" type="submit">
-              Add Now
+              {t("saveContact")}
             </button>
           </div>
         </form>

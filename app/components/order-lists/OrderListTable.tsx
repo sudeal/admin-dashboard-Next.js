@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { OrderItem, OrderStatus } from "@/app/services/order-list.service";
 import { getOrderList } from "@/app/services/order-list.service";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 type FilterState = {
   date: string;
@@ -13,12 +14,13 @@ type FilterState = {
 
 export default function OrderListTable() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   const [orders, setOrders] = useState<OrderItem[]>([]);
   const [filters, setFilters] = useState<FilterState>({
-    date: "Date",
-    type: "Order Type",
-    status: "Order Status",
+    date: t("date"),
+    type: t("orderType"),
+    status: t("orderStatus"),
   });
 
   useEffect(() => {
@@ -35,28 +37,28 @@ export default function OrderListTable() {
 
   const filteredOrders = useMemo(() => {
     return orders.filter((o) => {
-      const typeOk = filters.type === "Order Type" || o.type === filters.type;
+      const typeOk = filters.type === t("orderType") || o.type === filters.type;
       const statusOk =
-        filters.status === "Order Status" || o.status === filters.status;
+        filters.status === t("orderStatus") || o.status === filters.status;
       return typeOk && statusOk;
     });
-  }, [orders, filters]);
+  }, [orders, filters, t]);
 
   const resetFilters = () => {
-    setFilters({ date: "Date", type: "Order Type", status: "Order Status" });
+    setFilters({ date: t("date"), type: t("orderType"), status: t("orderStatus") });
   };
 
   const statusClass = (s: OrderStatus) => {
     switch (s) {
-      case "Completed":
+      case "completed":
         return "ol-badge ol-badge--completed";
-      case "Processing":
+      case "processing":
         return "ol-badge ol-badge--processing";
-      case "Rejected":
+      case "rejected":
         return "ol-badge ol-badge--rejected";
-      case "On Hold":
+      case "onHold":
         return "ol-badge ol-badge--hold";
-      case "In Transit":
+      case "inTransit":
         return "ol-badge ol-badge--transit";
       default:
         return "ol-badge";
@@ -71,7 +73,7 @@ export default function OrderListTable() {
 
   return (
     <div className="ol-page">
-      <h1 className="ol-title">Order Lists</h1>
+      <h1 className="ol-title">{t("orderLists")}</h1>
 
       <div className="ol-filters">
         <div className="ol-filters__left">
@@ -79,7 +81,7 @@ export default function OrderListTable() {
             <i className="bi bi-funnel" />
           </button>
 
-          <div className="ol-filter-by">Filter By</div>
+          <div className="ol-filter-by">{t("filterBy")}</div>
 
           <div className="ol-divider" />
 
@@ -88,9 +90,9 @@ export default function OrderListTable() {
             value={filters.date}
             onChange={(e) => setFilters((p) => ({ ...p, date: e.target.value }))}
           >
-            <option>Date</option>
-            <option>Last 30 days</option>
-            <option>This year</option>
+            <option>{t("date")}</option>
+            <option>{t("last30Days")}</option>
+            <option>{t("thisYear")}</option>
           </select>
 
           <div className="ol-divider" />
@@ -100,10 +102,10 @@ export default function OrderListTable() {
             value={filters.type}
             onChange={(e) => setFilters((p) => ({ ...p, type: e.target.value }))}
           >
-            <option>Order Type</option>
-            {uniqueTypes.map((t) => (
-              <option key={t} value={t}>
-                {t}
+            <option>{t("orderType")}</option>
+            {uniqueTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
               </option>
             ))}
           </select>
@@ -117,10 +119,10 @@ export default function OrderListTable() {
               setFilters((p) => ({ ...p, status: e.target.value }))
             }
           >
-            <option>Order Status</option>
-            {uniqueStatuses.map((s) => (
-              <option key={s} value={s}>
-                {s}
+            <option>{t("orderStatus")}</option>
+            {uniqueStatuses.map((status) => (
+              <option key={status} value={status}>
+                {t(status)}
               </option>
             ))}
           </select>
@@ -128,7 +130,7 @@ export default function OrderListTable() {
 
         <button className="ol-reset" type="button" onClick={resetFilters}>
           <i className="bi bi-arrow-counterclockwise" />
-          <span>Reset Filter</span>
+          <span>{t("resetFilter")}</span>
         </button>
       </div>
 
@@ -138,11 +140,11 @@ export default function OrderListTable() {
             <thead>
               <tr>
                 <th style={{ width: 90 }}>ID</th>
-                <th>NAME</th>
-                <th>ADDRESS</th>
-                <th style={{ width: 140 }}>DATE</th>
-                <th style={{ width: 160 }}>TYPE</th>
-                <th style={{ width: 150 }}>STATUS</th>
+                <th>{t("customer")}</th>
+                <th>{t("address")}</th>
+                <th style={{ width: 140 }}>{t("date")}</th>
+                <th style={{ width: 160 }}>{t("type")}</th>
+                <th style={{ width: 150 }}>{t("status")}</th>
               </tr>
             </thead>
 
@@ -164,7 +166,7 @@ export default function OrderListTable() {
                   <td className="ol-muted">{o.date}</td>
                   <td className="ol-muted">{o.type}</td>
                   <td>
-                    <span className={statusClass(o.status)}>{o.status}</span>
+                    <span className={statusClass(o.status)}>{t(o.status)}</span>
                   </td>
                 </tr>
               ))}

@@ -1,11 +1,11 @@
 import { getProductStock } from "@/app/services/product-stock.service";
 
 export type OrderStatus =
-  | "Completed"
-  | "Processing"
-  | "Rejected"
-  | "On Hold"
-  | "In Transit";
+  | "completed"
+  | "processing"
+  | "rejected"
+  | "onHold"
+  | "inTransit";
 
 export type OrderItem = {
   id: string;
@@ -53,7 +53,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "689 Kutch Green Apt. 448",
       date: "04 Sep 2019",
       type: types[0] ?? "Digital Product",
-      status: "Completed",
+      status: "completed",
     },
     {
       id: "00002",
@@ -61,7 +61,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "979 Immanuel Ferry Suite 526",
       date: "28 May 2019",
       type: types[1] ?? "Fashion",
-      status: "Processing",
+      status: "processing",
     },
     {
       id: "00003",
@@ -69,7 +69,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "8587 Frida Ports",
       date: "23 Nov 2019",
       type: types[2] ?? "Mobile",
-      status: "Rejected",
+      status: "rejected",
     },
     {
       id: "00004",
@@ -77,7 +77,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "768 Destinay Lake Suite 600",
       date: "05 Feb 2019",
       type: types[3] ?? "Accessory",
-      status: "Completed",
+      status: "completed",
     },
     {
       id: "00005",
@@ -85,7 +85,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "042 Mylene Throughway",
       date: "29 Jul 2019",
       type: types[0] ?? "Digital Product",
-      status: "Processing",
+      status: "processing",
     },
     {
       id: "00006",
@@ -93,7 +93,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "543 Weinmann Mountain",
       date: "15 Aug 2019",
       type: types[1] ?? "Fashion",
-      status: "Completed",
+      status: "completed",
     },
     {
       id: "00007",
@@ -101,7 +101,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "New Scottieberg",
       date: "21 Dec 2019",
       type: types[2] ?? "Mobile",
-      status: "Processing",
+      status: "processing",
     },
     {
       id: "00008",
@@ -109,7 +109,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "New Jon",
       date: "30 Apr 2019",
       type: types[3] ?? "Accessory",
-      status: "On Hold",
+      status: "onHold",
     },
     {
       id: "00009",
@@ -117,7 +117,7 @@ export async function getOrderList(): Promise<OrderItem[]> {
       address: "124 La Force Suite 975",
       date: "09 Jan 2019",
       type: types[0] ?? "Digital Product",
-      status: "In Transit",
+      status: "inTransit",
     },
   ];
 

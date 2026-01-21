@@ -4,8 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { OrderDetails, OrderStatus } from "@/app/services/order-list.service";
 import { getOrderDetailsById } from "@/app/services/order-list.service";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
+  const { t } = useLanguage();
   const normalizedId = useMemo(() => {
     let t = String(orderId ?? "");
     try {
@@ -53,11 +55,11 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
       <div className="od2-page">
         <div className="od2-card">
           <div className="od2-loading" style={{ color: "#ef4444" }}>
-            Order not found (ID: {normalizedId})
+            {t("orderNotFound")} (ID: {normalizedId})
           </div>
           <div style={{ marginTop: 12 }}>
             <Link className="od2-back" href="/orders">
-              <i className="bi bi-arrow-left" /> Back to Orders
+              <i className="bi bi-arrow-left" /> {t("backToOrders")}
             </Link>
           </div>
         </div>
@@ -67,15 +69,15 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
 
   const statusClass = (s: OrderStatus) => {
     switch (s) {
-      case "Completed":
+      case "completed":
         return "ol-badge ol-badge--completed";
-      case "Processing":
+      case "processing":
         return "ol-badge ol-badge--processing";
-      case "Rejected":
+      case "rejected":
         return "ol-badge ol-badge--rejected";
-      case "On Hold":
+      case "onHold":
         return "ol-badge ol-badge--hold";
-      case "In Transit":
+      case "inTransit":
         return "ol-badge ol-badge--transit";
       default:
         return "ol-badge";
@@ -115,32 +117,32 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
             </div>
           </div>
 
-          <span className={statusClass(data.status)}>{data.status}</span>
+          <span className={statusClass(data.status)}>{t(data.status)}</span>
         </div>
 
         <div className="od2-divider" />
 
         <div className="od2-three">
           <div className="od2-block">
-            <div className="od2-block-title">Customer</div>
+            <div className="od2-block-title">{t("customer")}</div>
             <div className="od2-block-strong">{data.customerName}</div>
             <div className="od2-block-muted">{data.customerEmail}</div>
             <div className="od2-block-muted">{data.customerPhone}</div>
           </div>
 
           <div className="od2-block">
-            <div className="od2-block-title">Shipping Address</div>
+            <div className="od2-block-title">{t("shippingAddress")}</div>
             <div className="od2-block-muted">{data.shippingAddressLine}</div>
             <div className="od2-block-muted">{data.shippingCountry}</div>
           </div>
 
           <div className="od2-block od2-block--right">
-            <div className="od2-block-title">Tracking</div>
+            <div className="od2-block-title">{t("tracking")}</div>
             <div className="od2-block-muted">
-              <span className="od2-meta-label">Tracking No:</span> {data.trackingNo}
+              <span className="od2-meta-label">{t("trackingNo")}</span> {data.trackingNo}
             </div>
             <div className="od2-block-muted">
-              <span className="od2-meta-label">Carrier:</span> {data.carrier}
+              <span className="od2-meta-label">{t("carrier")}</span> {data.carrier}
             </div>
           </div>
         </div>
@@ -149,12 +151,12 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
           <table className="od2-table">
             <thead>
               <tr>
-                <th style={{ width: 90 }}>Image</th>
-                <th>Product</th>
-                <th style={{ width: 170 }}>Category</th>
-                <th style={{ width: 80, textAlign: "center" }}>Qty</th>
-                <th style={{ width: 120, textAlign: "right" }}>Unit</th>
-                <th style={{ width: 120, textAlign: "right" }}>Total</th>
+                <th style={{ width: 90 }}>{t("image")}</th>
+                <th>{t("product")}</th>
+                <th style={{ width: 170 }}>{t("category")}</th>
+                <th style={{ width: 80, textAlign: "center" }}>{t("quantity")}</th>
+                <th style={{ width: 120, textAlign: "right" }}>{t("price")}</th>
+                <th style={{ width: 120, textAlign: "right" }}>{t("total")}</th>
               </tr>
             </thead>
 
@@ -179,22 +181,22 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
 
           <div className="od2-totals">
             <div className="od2-totals-row">
-              <span>Subtotal</span>
+              <span>{t("subtotal")}</span>
               <span>${data.subtotal.toFixed(0)}</span>
             </div>
             <div className="od2-totals-row">
-              <span>Shipping</span>
+              <span>{t("shipping")}</span>
               <span>${data.shipping.toFixed(0)}</span>
             </div>
             <div className="od2-totals-row">
-              <span>Tax</span>
+              <span>{t("tax")}</span>
               <span>${data.tax.toFixed(0)}</span>
             </div>
 
             <div className="od2-totals-divider" />
 
             <div className="od2-totals-row od2-totals-row--total">
-              <span>Total</span>
+              <span>{t("grandTotal")}</span>
               <span>${data.grandTotal.toFixed(0)}</span>
             </div>
           </div>

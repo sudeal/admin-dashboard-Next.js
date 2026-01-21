@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/app/contexts/ThemeContext";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 type HeaderProps = {
     onMenuClick?: () => void;
@@ -51,12 +52,16 @@ const notifications: Notification[] = [
 export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps) {
     const router = useRouter();
     const { theme, toggleTheme } = useTheme();
+    const { language, toggleLanguage, t } = useLanguage();
     const [notificationOpen, setNotificationOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
+    const [languageOpen, setLanguageOpen] = useState(false);
     const notificationRef = useRef<HTMLDivElement>(null);
     const notificationButtonRef = useRef<HTMLButtonElement>(null);
     const profileRef = useRef<HTMLDivElement>(null);
     const profileButtonRef = useRef<HTMLButtonElement>(null);
+    const languageRef = useRef<HTMLDivElement>(null);
+    const languageButtonRef = useRef<HTMLButtonElement>(null);
     
     const handleMenuClick = () => {
       if (onMenuClick) onMenuClick();
@@ -66,11 +71,26 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
     const toggleNotification = () => {
       setNotificationOpen(!notificationOpen);
       setProfileOpen(false); 
+      setLanguageOpen(false);
     };
 
     const toggleProfile = () => {
       setProfileOpen(!profileOpen);
       setNotificationOpen(false); 
+      setLanguageOpen(false);
+    };
+
+    const toggleLanguageDropdown = () => {
+      setLanguageOpen(!languageOpen);
+      setNotificationOpen(false);
+      setProfileOpen(false);
+    };
+
+    const handleLanguageChange = (lang: "en" | "tr") => {
+      if (lang !== language) {
+        toggleLanguage();
+      }
+      setLanguageOpen(false);
     };
 
     const handleLogout = () => {
@@ -102,16 +122,26 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
         ) {
           setProfileOpen(false);
         }
+
+        if (
+          languageOpen &&
+          languageRef.current &&
+          !languageRef.current.contains(event.target as Node) &&
+          languageButtonRef.current &&
+          !languageButtonRef.current.contains(event.target as Node)
+        ) {
+          setLanguageOpen(false);
+        }
       };
 
-      if (notificationOpen || profileOpen) {
+      if (notificationOpen || profileOpen || languageOpen) {
         document.addEventListener("mousedown", handleClickOutside);
       }
 
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, [notificationOpen, profileOpen]);
+    }, [notificationOpen, profileOpen, languageOpen]);
 
     return (
       <header className="ds-header">
@@ -127,7 +157,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
   
           <div className="ds-search">
             <i className="bi bi-search ds-search__icon" />
-            <input className="ds-search__input" placeholder="Search" />
+            <input className="ds-search__input" placeholder={t("search")} />
           </div>
         </div>
 
@@ -147,7 +177,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
             {notificationOpen && (
               <div className="ds-notification-dropdown" ref={notificationRef}>
                 <div className="ds-notification-header">
-                  <h3 className="ds-notification-title">Notification</h3>
+                  <h3 className="ds-notification-title">{t("notification")}</h3>
                 </div>
                 
                 <div className="ds-notification-list">
@@ -160,8 +190,8 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
                         <i className={`bi ${notif.icon}`} />
                       </div>
                       <div className="ds-notification-content">
-                        <div className="ds-notification-item-title">{notif.title}</div>
-                        <div className="ds-notification-item-desc">{notif.description}</div>
+                        <div className="ds-notification-item-title">{t(notif.title.toLowerCase().replace(/\s+/g, ''))}</div>
+                        <div className="ds-notification-item-desc">{t(notif.description.toLowerCase().replace(/\s+/g, ''))}</div>
                       </div>
                     </div>
                   ))}
@@ -173,7 +203,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
                     className="ds-notification-see-all"
                     onClick={() => setNotificationOpen(false)}
                   >
-                    See all notification
+                    {t("seeAllNotification")}
                   </button>
                 </div>
               </div>
@@ -189,11 +219,38 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
             <i className={theme === "dark" ? "bi bi-sun" : "bi bi-moon"} />
           </button>
   
-          <button className="ds-pill" type="button" aria-label="Language">
-            <i className="bi bi-globe2" />
-            <span>English</span>
-            <i className="bi bi-chevron-down ds-pill__chev" />
-          </button>
+          <div className="ds-language-wrapper">
+            <button 
+              ref={languageButtonRef}
+              className="ds-pill" 
+              type="button" 
+              aria-label="Language"
+              onClick={toggleLanguageDropdown}
+            >
+              <i className="bi bi-globe2" />
+              <span>{language === "en" ? "English" : "Türkçe"}</span>
+              <i className="bi bi-chevron-down ds-pill__chev" />
+            </button>
+
+            {languageOpen && (
+              <div className="ds-language-dropdown" ref={languageRef}>
+                <button 
+                  type="button" 
+                  className={`ds-language-option ${language === "en" ? "active" : ""}`}
+                  onClick={() => handleLanguageChange("en")}
+                >
+                  English
+                </button>
+                <button 
+                  type="button" 
+                  className={`ds-language-option ${language === "tr" ? "active" : ""}`}
+                  onClick={() => handleLanguageChange("tr")}
+                >
+                  Türkçe
+                </button>
+              </div>
+            )}
+          </div>
   
           <div className="ds-profile-wrapper">
             <button 
@@ -208,7 +265,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
               </span>
               <span className="ds-profile__text">
                 <span className="ds-profile__name">Moni Roy</span>
-                <span className="ds-profile__role">Admin</span>
+                <span className="ds-profile__role">{t("admin")}</span>
               </span>
               <i className="bi bi-chevron-down ds-profile__chev" />
             </button>
@@ -221,7 +278,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
                   onClick={handleLogout}
                 >
                   <i className="bi bi-box-arrow-right" />
-                  <span>Logout</span>
+                  <span>{t("logout")}</span>
                 </button>
               </div>
             )}

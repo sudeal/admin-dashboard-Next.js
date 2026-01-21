@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 type TodoItem = {
   id: string;
@@ -52,6 +53,7 @@ export default function TodoListView() {
   
   const [modalOpen, setModalOpen] = useState(false);
   const [newText, setNewText] = useState("");
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fromLs = loadTodos();
@@ -125,10 +127,10 @@ export default function TodoListView() {
   return (
     <div className="td-page">
       <div className="td-topbar">
-        <h1 className="td-title">To-Do List</h1>
+        <h1 className="td-title">{t("toDoList")}</h1>
 
         <button className="td-add-btn" type="button" onClick={openModal}>
-          Add New Task
+          {t("addNewTask")}
         </button>
       </div>
 

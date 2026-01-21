@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getOrderList, getOrderDetailsById, type OrderStatus } from "@/app/services/order-list.service";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 type SalesItem = {
   orderId: string;
@@ -17,6 +18,7 @@ type SalesItem = {
 
 export default function SalesDetails() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [salesItems, setSalesItems] = useState<SalesItem[]>([]);
   const [selectedMonth, setSelectedMonth] = useState("October");
 
@@ -52,15 +54,15 @@ export default function SalesDetails() {
 
   const statusClass = (s: OrderStatus) => {
     switch (s) {
-      case "Completed":
+      case "completed":
         return "sd-badge sd-badge--completed";
-      case "Processing":
+      case "processing":
         return "sd-badge sd-badge--processing";
-      case "Rejected":
+      case "rejected":
         return "sd-badge sd-badge--rejected";
-      case "On Hold":
+      case "onHold":
         return "sd-badge sd-badge--hold";
-      case "In Transit":
+      case "inTransit":
         return "sd-badge sd-badge--transit";
       default:
         return "sd-badge";
@@ -75,7 +77,7 @@ export default function SalesDetails() {
   return (
     <div className="sd-card">
       <div className="sd-header">
-        <h2 className="sd-title">Sales Details</h2>
+        <h2 className="sd-title">{t("salesDetails")}</h2>
         <select
           className="sd-month-select"
           value={selectedMonth}
@@ -91,14 +93,14 @@ export default function SalesDetails() {
         <table className="sd-table">
           <thead>
             <tr>
-              <th>Order ID</th>
-              <th>Customer</th>
-              <th>Product</th>
-              <th style={{ textAlign: "center" }}>Qty</th>
-              <th style={{ textAlign: "right" }}>Unit Price</th>
-              <th style={{ textAlign: "right" }}>Total</th>
-              <th>Date</th>
-              <th>Status</th>
+              <th>{t("orderId")}</th>
+              <th>{t("customer")}</th>
+              <th>{t("product")}</th>
+              <th style={{ textAlign: "center" }}>{t("qty")}</th>
+              <th style={{ textAlign: "right" }}>{t("unitPrice")}</th>
+              <th style={{ textAlign: "right" }}>{t("total")}</th>
+              <th>{t("date")}</th>
+              <th>{t("status")}</th>
             </tr>
           </thead>
           <tbody>
@@ -121,7 +123,7 @@ export default function SalesDetails() {
                 <td style={{ textAlign: "right" }}>${item.total.toFixed(0)}</td>
                 <td className="sd-date">{item.date}</td>
                 <td>
-                  <span className={statusClass(item.status)}>{item.status}</span>
+                  <span className={statusClass(item.status)}>{t(item.status)}</span>
                 </td>
               </tr>
             ))}
@@ -129,7 +131,7 @@ export default function SalesDetails() {
             {salesItems.length === 0 && (
               <tr>
                 <td colSpan={8} className="sd-empty">
-                  No sales data found.
+                  {t("noSalesDataFound")}
                 </td>
               </tr>
             )}

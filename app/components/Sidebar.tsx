@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 type NavItem = {
-  label: string;
+  labelKey: string;
   icon: string;
   href: string;
 };
@@ -15,20 +16,20 @@ type SidebarProps = {
 };
 
 const topItems: NavItem[] = [
-  { label: "Dashboard", icon: "bi-speedometer2", href: "/" },
-  { label: "Products", icon: "bi-grid", href: "/products" },
-  { label: "Favorites", icon: "bi-heart", href: "/favorites" },
-  { label: "Inbox", icon: "bi-chat-left", href: "/inbox" },
-  { label: "Order Lists", icon: "bi-card-checklist", href: "/orders" },
-  { label: "Product Stock", icon: "bi-list-check", href: "/stock" },
+  { labelKey: "dashboard", icon: "bi-speedometer2", href: "/" },
+  { labelKey: "products", icon: "bi-grid", href: "/products" },
+  { labelKey: "favorites", icon: "bi-heart", href: "/favorites" },
+  { labelKey: "inbox", icon: "bi-chat-left", href: "/inbox" },
+  { labelKey: "orderLists", icon: "bi-card-checklist", href: "/orders" },
+  { labelKey: "productStock", icon: "bi-list-check", href: "/stock" },
 ];
 
 const pageItems: NavItem[] = [
-  { label: "To Do List", icon: "bi-check2-square", href: "/todo" },
-  { label: "Contact", icon: "bi-people", href: "/contact" },
-  { label: "Pricing", icon: "bi-gift", href: "/pricing" },
-  { label: "Charts", icon: "bi-bar-chart", href: "/charts" },
-  { label: "Calendar", icon: "bi-calendar4", href: "/calendar" },
+  { labelKey: "toDoList", icon: "bi-check2-square", href: "/todo" },
+  { labelKey: "contact", icon: "bi-people", href: "/contact" },
+  { labelKey: "pricing", icon: "bi-gift", href: "/pricing" },
+  { labelKey: "charts", icon: "bi-bar-chart", href: "/charts" },
+  { labelKey: "calendar", icon: "bi-calendar4", href: "/calendar" },
 ];
 
 export default function Sidebar({
@@ -36,6 +37,7 @@ export default function Sidebar({
   isCollapsed = false,
 }: SidebarProps) {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -61,14 +63,14 @@ export default function Sidebar({
       <nav className="ds-nav">
         <ul className="ds-nav__list">
           {topItems.map((item) => (
-            <li key={item.label}>
+            <li key={item.labelKey}>
               <Link
                 href={item.href}
                 className={`ds-nav__link ${isActive(item.href) ? "is-active" : ""}`}
               >
                 <i className={`bi ${item.icon} ds-nav__icon`} />
                 {!isCollapsed && (
-                  <span className="ds-nav__text">{item.label}</span>
+                  <span className="ds-nav__text">{t(item.labelKey)}</span>
                 )}
               </Link>
             </li>
@@ -77,18 +79,18 @@ export default function Sidebar({
 
         <hr className="ds-divider" />
 
-        {!isCollapsed && <div className="ds-section-title">PAGES</div>}
+        {!isCollapsed && <div className="ds-section-title">{t("pages")}</div>}
 
         <ul className="ds-nav__list">
           {pageItems.map((item) => (
-            <li key={item.label}>
+            <li key={item.labelKey}>
               <Link
                 href={item.href}
                 className={`ds-nav__link ${isActive(item.href) ? "is-active" : ""}`}
               >
                 <i className={`bi ${item.icon} ds-nav__icon`} />
                 {!isCollapsed && (
-                  <span className="ds-nav__text">{item.label}</span>
+                  <span className="ds-nav__text">{t(item.labelKey)}</span>
                 )}
               </Link>
             </li>
