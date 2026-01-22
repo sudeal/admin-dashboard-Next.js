@@ -6,6 +6,10 @@ import type { EventClickArg, EventInput, EventMountArg } from "@fullcalendar/cor
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import trLocale from "@fullcalendar/core/locales/tr";
+import enLocale from "@fullcalendar/core/locales/en-gb";
+import useTranslation from "@/app/hooks/useTranslation";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 type ViewMode = "dayGridMonth" | "timeGridWeek" | "timeGridDay";
 
@@ -28,25 +32,6 @@ const STORAGE_KEY = "ds_calendar_events_v1";
 
 
 
-function formatDateLine(date: Date) {
- 
-  const fmt = new Intl.DateTimeFormat("en-GB", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-  return fmt.format(date);
-}
-
-function formatTimeLine(date: Date) {
- 
-  const fmt = new Intl.DateTimeFormat("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
-  return fmt.format(date);
-}
 
 function loadEventsFromStorage(): EventDetails[] | null {
   try {
@@ -125,7 +110,27 @@ function seedEvents(): EventDetails[] {
 
 
 export default function CalendarPageView() {
+  const { t } = useTranslation();
+  const { language } = useLanguage();
   const [viewMode, setViewMode] = useState<ViewMode>("dayGridMonth");
+
+  const formatDateLine = (date: Date) => {
+    const fmt = new Intl.DateTimeFormat(language === "tr" ? "tr-TR" : "en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+    return fmt.format(date);
+  };
+
+  const formatTimeLine = (date: Date) => {
+    const fmt = new Intl.DateTimeFormat(language === "tr" ? "tr-TR" : "en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: false,
+    });
+    return fmt.format(date);
+  };
 
   
   const [events, setEvents] = useState<EventDetails[]>([]);
@@ -358,7 +363,7 @@ export default function CalendarPageView() {
     if (!active) return null;
     const startDate = new Date(active.start);
     const dateText = formatDateLine(startDate);
-    const timeText = active.allDay ? "All Day" : formatTimeLine(startDate);
+    const timeText = active.allDay ? t("calendar.allDay") : formatTimeLine(startDate);
 
     const company = active.extendedProps?.company ?? "—";
     const location = active.extendedProps?.location ?? "—";
@@ -388,15 +393,15 @@ export default function CalendarPageView() {
       {/* LEFT PANEL */}
       <aside className="cal-left">
         <button className="cal-add-btn" type="button" onClick={handleAddEvent}>
-          + Add New Event
+          + {t("calendar.addNewEvent")}
         </button>
 
-        <div className="cal-left-title">You are going to</div>
+        <div className="cal-left-title">{t("calendar.youAreGoingTo")}</div>
 
         <div className="cal-left-list">
           {upcomingEvents.map((ev) => {
             const d = new Date(ev.start);
-            const dateLine = `${formatDateLine(d)} at ${formatTimeLine(d)}`;
+            const dateLine = `${formatDateLine(d)} ${t("calendar.at")} ${formatTimeLine(d)}`;
             const line1 = ev.extendedProps?.company ?? "";
             const line2 = ev.extendedProps?.location ?? "";
             const dots = ev.extendedProps?.dots ?? ["#111827", "#9ca3af", "#e5e7eb"];
@@ -436,7 +441,7 @@ export default function CalendarPageView() {
         </div>
 
         <button className="cal-more" type="button">
-          See More
+          {t("calendar.seeMore")}
         </button>
       </aside>
 
@@ -453,7 +458,7 @@ export default function CalendarPageView() {
                   updateTitle();
                 }}
               >
-                Today
+                {t("calendar.today")}
               </button>
 
               <div className="cal-title-area">
@@ -490,21 +495,21 @@ export default function CalendarPageView() {
                   className={`cal-pill ${viewMode === "timeGridDay" ? "is-active" : ""}`}
                   onClick={() => setViewMode("timeGridDay")}
                 >
-                  Day
+                  {t("calendar.day")}
                 </button>
                 <button
                   type="button"
                   className={`cal-pill ${viewMode === "timeGridWeek" ? "is-active" : ""}`}
                   onClick={() => setViewMode("timeGridWeek")}
                 >
-                  Week
+                  {t("calendar.week")}
                 </button>
                 <button
                   type="button"
                   className={`cal-pill ${viewMode === "dayGridMonth" ? "is-active" : ""}`}
                   onClick={() => setViewMode("dayGridMonth")}
                 >
-                  Month
+                  {t("calendar.month")}
                 </button>
               </div>
             </div>
@@ -529,6 +534,7 @@ export default function CalendarPageView() {
                 firstDay={1}
                 dayHeaderFormat={{ weekday: "short" }}
                 eventDisplay="block"
+                locale={language === "tr" ? trLocale : enLocale}
                 eventContent={(arg) => (
                   <div className="cal-event">
                     <span className="cal-event__text">{arg.event.title}</span>
@@ -595,7 +601,7 @@ export default function CalendarPageView() {
         <div className="cal-modal-overlay">
           <div className="cal-modal" ref={modalRef}>
             <div className="cal-modal-header">
-              <h2 className="cal-modal-title">Add New Event</h2>
+              <h2 className="cal-modal-title">{t("calendar.addNewEvent")}</h2>
               <button
                 type="button"
                 className="cal-modal-close"
@@ -609,12 +615,12 @@ export default function CalendarPageView() {
             <form onSubmit={handleSubmitEvent} className="cal-modal-form">
               <div className="cal-modal-field">
                 <label className="cal-modal-label">
-                  Event Title <span className="cal-modal-required">*</span>
+                  {t("calendar.eventTitle")} <span className="cal-modal-required">*</span>
                 </label>
                 <input
                   type="text"
                   className="cal-modal-input"
-                  placeholder="Enter event title"
+                  placeholder={t("calendar.enterEventTitle")}
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   required
@@ -623,7 +629,7 @@ export default function CalendarPageView() {
 
               <div className="cal-modal-field">
                 <label className="cal-modal-label">
-                  Date <span className="cal-modal-required">*</span>
+                  {t("calendar.date")} <span className="cal-modal-required">*</span>
                 </label>
                 <input
                   type="date"
@@ -635,7 +641,7 @@ export default function CalendarPageView() {
               </div>
 
               <div className="cal-modal-field">
-                <label className="cal-modal-label">Time</label>
+                <label className="cal-modal-label">{t("calendar.time")}</label>
                 <div className="cal-modal-time-wrapper">
                   <input
                     type="time"
@@ -648,22 +654,22 @@ export default function CalendarPageView() {
               </div>
 
               <div className="cal-modal-field">
-                <label className="cal-modal-label">Location</label>
+                <label className="cal-modal-label">{t("calendar.location")}</label>
                 <input
                   type="text"
                   className="cal-modal-input"
-                  placeholder="Enter location"
+                  placeholder={t("calendar.enterLocation")}
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                 />
               </div>
 
               <div className="cal-modal-field">
-                <label className="cal-modal-label">Organization</label>
+                <label className="cal-modal-label">{t("calendar.organization")}</label>
                 <input
                   type="text"
                   className="cal-modal-input"
-                  placeholder="Enter organization"
+                  placeholder={t("calendar.enterOrganization")}
                   value={formData.organization}
                   onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                 />
@@ -675,13 +681,13 @@ export default function CalendarPageView() {
                   className="cal-modal-btn cal-modal-btn--cancel"
                   onClick={handleCancelModal}
                 >
-                  Cancel
+                  {t("calendar.cancel")}
                 </button>
                 <button
                   type="submit"
                   className="cal-modal-btn cal-modal-btn--submit"
                 >
-                  Add Event
+                  {t("calendar.addEvent")}
                 </button>
               </div>
             </form>

@@ -4,10 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { OrderDetails, OrderStatus } from "@/app/services/order-list.service";
 import { getOrderDetailsById } from "@/app/services/order-list.service";
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const normalizedId = useMemo(() => {
     let t = String(orderId ?? "");
     try {
@@ -55,11 +55,11 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
       <div className="od2-page">
         <div className="od2-card">
           <div className="od2-loading" style={{ color: "#ef4444" }}>
-            {t("orderNotFound")} (ID: {normalizedId})
+            {t("orders.orderNotFound")} (ID: {normalizedId})
           </div>
           <div style={{ marginTop: 12 }}>
             <Link className="od2-back" href="/orders">
-              <i className="bi bi-arrow-left" /> {t("backToOrders")}
+              <i className="bi bi-arrow-left" /> {t("orders.backToOrders")}
             </Link>
           </div>
         </div>
@@ -104,45 +104,45 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
         <div className="od2-meta">
           <div className="od2-meta-left">
             <div className="od2-meta-line">
-              <span className="od2-meta-label">Order No:</span>{" "}
+              <span className="od2-meta-label">{t("orders.orderNo")}:</span>{" "}
               <span className="od2-meta-strong">#{data.orderNo}</span>
             </div>
 
             <div className="od2-meta-sub">
-              <span className="od2-meta-label">Date:</span>{" "}
+              <span className="od2-meta-label">{t("tables.date")}:</span>{" "}
               <span className="od2-meta-strong">{data.date}</span>
               <span className="od2-dot">•</span>
-              <span className="od2-meta-label">Type:</span>{" "}
-              <span className="od2-meta-strong">{data.type}</span>
+              <span className="od2-meta-label">{t("tables.type")}:</span>{" "}
+              <span className="od2-meta-strong">{t(`categories.${data.type}`) || data.type}</span>
             </div>
           </div>
 
-          <span className={statusClass(data.status)}>{t(data.status)}</span>
+          <span className={statusClass(data.status)}>{t(`statuses.${data.status}`)}</span>
         </div>
 
         <div className="od2-divider" />
 
         <div className="od2-three">
           <div className="od2-block">
-            <div className="od2-block-title">{t("customer")}</div>
+            <div className="od2-block-title">{t("tables.customer")}</div>
             <div className="od2-block-strong">{data.customerName}</div>
             <div className="od2-block-muted">{data.customerEmail}</div>
             <div className="od2-block-muted">{data.customerPhone}</div>
           </div>
 
           <div className="od2-block">
-            <div className="od2-block-title">{t("shippingAddress")}</div>
+            <div className="od2-block-title">{t("orders.shippingAddress")}</div>
             <div className="od2-block-muted">{data.shippingAddressLine}</div>
             <div className="od2-block-muted">{data.shippingCountry}</div>
           </div>
 
           <div className="od2-block od2-block--right">
-            <div className="od2-block-title">{t("tracking")}</div>
+            <div className="od2-block-title">{t("orders.tracking")}</div>
             <div className="od2-block-muted">
-              <span className="od2-meta-label">{t("trackingNo")}</span> {data.trackingNo}
+              <span className="od2-meta-label">{t("orders.trackingNo")}</span> {data.trackingNo}
             </div>
             <div className="od2-block-muted">
-              <span className="od2-meta-label">{t("carrier")}</span> {data.carrier}
+              <span className="od2-meta-label">{t("orders.carrier")}</span> {data.carrier}
             </div>
           </div>
         </div>
@@ -151,12 +151,12 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
           <table className="od2-table">
             <thead>
               <tr>
-                <th style={{ width: 90 }}>{t("image")}</th>
-                <th>{t("product")}</th>
-                <th style={{ width: 170 }}>{t("category")}</th>
-                <th style={{ width: 80, textAlign: "center" }}>{t("quantity")}</th>
-                <th style={{ width: 120, textAlign: "right" }}>{t("price")}</th>
-                <th style={{ width: 120, textAlign: "right" }}>{t("total")}</th>
+                <th style={{ width: 90 }}>{t("productStock.image")}</th>
+                <th>{t("sales.product")}</th>
+                <th style={{ width: 170 }}>{t("productStock.category")}</th>
+                <th style={{ width: 80, textAlign: "center" }}>{t("orders.quantity")}</th>
+                <th style={{ width: 120, textAlign: "right" }}>{t("productStock.price")}</th>
+                <th style={{ width: 120, textAlign: "right" }}>{t("sales.total")}</th>
               </tr>
             </thead>
 
@@ -170,7 +170,7 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
                     </div>
                   </td>
                   <td className="od2-prod">{l.productName}</td>
-                  <td className="od2-muted">{l.category}</td>
+                  <td className="od2-muted">{t(`categories.${l.category}`) || l.category}</td>
                   <td style={{ textAlign: "center" }}>{l.qty}</td>
                   <td style={{ textAlign: "right" }}>${l.unit.toFixed(0)}</td>
                   <td style={{ textAlign: "right" }}>${l.total.toFixed(0)}</td>
@@ -181,22 +181,22 @@ export default function OrderDetailsPageView({ orderId }: { orderId: string }) {
 
           <div className="od2-totals">
             <div className="od2-totals-row">
-              <span>{t("subtotal")}</span>
+              <span>{t("orders.subtotal")}</span>
               <span>${data.subtotal.toFixed(0)}</span>
             </div>
             <div className="od2-totals-row">
-              <span>{t("shipping")}</span>
+              <span>{t("orders.shipping")}</span>
               <span>${data.shipping.toFixed(0)}</span>
             </div>
             <div className="od2-totals-row">
-              <span>{t("tax")}</span>
+              <span>{t("orders.tax")}</span>
               <span>${data.tax.toFixed(0)}</span>
             </div>
 
             <div className="od2-totals-divider" />
 
             <div className="od2-totals-row od2-totals-row--total">
-              <span>{t("grandTotal")}</span>
+              <span>{t("orders.grandTotal")}</span>
               <span>${data.grandTotal.toFixed(0)}</span>
             </div>
           </div>

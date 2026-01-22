@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { OrderItem, OrderStatus } from "@/app/services/order-list.service";
 import { getOrderList } from "@/app/services/order-list.service";
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 type FilterState = {
   date: string;
@@ -14,13 +14,13 @@ type FilterState = {
 
 export default function OrderListTable() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t } = useTranslation();
 
   const [orders, setOrders] = useState<OrderItem[]>([]);
   const [filters, setFilters] = useState<FilterState>({
-    date: t("date"),
-    type: t("orderType"),
-    status: t("orderStatus"),
+    date: t("tables.date"),
+    type: t("tables.orderType"),
+    status: t("tables.orderStatus"),
   });
 
   useEffect(() => {
@@ -37,15 +37,15 @@ export default function OrderListTable() {
 
   const filteredOrders = useMemo(() => {
     return orders.filter((o) => {
-      const typeOk = filters.type === t("orderType") || o.type === filters.type;
+      const typeOk = filters.type === t("tables.orderType") || o.type === filters.type;
       const statusOk =
-        filters.status === t("orderStatus") || o.status === filters.status;
+        filters.status === t("tables.orderStatus") || o.status === filters.status;
       return typeOk && statusOk;
     });
   }, [orders, filters, t]);
 
   const resetFilters = () => {
-    setFilters({ date: t("date"), type: t("orderType"), status: t("orderStatus") });
+    setFilters({ date: t("tables.date"), type: t("tables.orderType"), status: t("tables.orderStatus") });
   };
 
   const statusClass = (s: OrderStatus) => {
@@ -73,7 +73,7 @@ export default function OrderListTable() {
 
   return (
     <div className="ol-page">
-      <h1 className="ol-title">{t("orderLists")}</h1>
+      <h1 className="ol-title">{t("sidebar.orderLists")}</h1>
 
       <div className="ol-filters">
         <div className="ol-filters__left">
@@ -81,7 +81,7 @@ export default function OrderListTable() {
             <i className="bi bi-funnel" />
           </button>
 
-          <div className="ol-filter-by">{t("filterBy")}</div>
+          <div className="ol-filter-by">{t("filters.filterBy")}</div>
 
           <div className="ol-divider" />
 
@@ -90,9 +90,9 @@ export default function OrderListTable() {
             value={filters.date}
             onChange={(e) => setFilters((p) => ({ ...p, date: e.target.value }))}
           >
-            <option>{t("date")}</option>
-            <option>{t("last30Days")}</option>
-            <option>{t("thisYear")}</option>
+            <option>{t("tables.date")}</option>
+            <option>{t("filters.last30Days")}</option>
+            <option>{t("filters.thisYear")}</option>
           </select>
 
           <div className="ol-divider" />
@@ -102,7 +102,7 @@ export default function OrderListTable() {
             value={filters.type}
             onChange={(e) => setFilters((p) => ({ ...p, type: e.target.value }))}
           >
-            <option>{t("orderType")}</option>
+            <option>{t("tables.orderType")}</option>
             {uniqueTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -119,10 +119,10 @@ export default function OrderListTable() {
               setFilters((p) => ({ ...p, status: e.target.value }))
             }
           >
-            <option>{t("orderStatus")}</option>
+            <option>{t("tables.orderStatus")}</option>
             {uniqueStatuses.map((status) => (
               <option key={status} value={status}>
-                {t(status)}
+                {t(`statuses.${status}`)}
               </option>
             ))}
           </select>
@@ -130,7 +130,7 @@ export default function OrderListTable() {
 
         <button className="ol-reset" type="button" onClick={resetFilters}>
           <i className="bi bi-arrow-counterclockwise" />
-          <span>{t("resetFilter")}</span>
+          <span>{t("filters.resetFilter")}</span>
         </button>
       </div>
 
@@ -140,11 +140,11 @@ export default function OrderListTable() {
             <thead>
               <tr>
                 <th style={{ width: 90 }}>ID</th>
-                <th>{t("customer")}</th>
-                <th>{t("address")}</th>
-                <th style={{ width: 140 }}>{t("date")}</th>
-                <th style={{ width: 160 }}>{t("type")}</th>
-                <th style={{ width: 150 }}>{t("status")}</th>
+                <th>{t("tables.customer")}</th>
+                <th>{t("tables.address")}</th>
+                <th style={{ width: 140 }}>{t("tables.date")}</th>
+                <th style={{ width: 160 }}>{t("tables.type")}</th>
+                <th style={{ width: 150 }}>{t("tables.status")}</th>
               </tr>
             </thead>
 
@@ -164,9 +164,9 @@ export default function OrderListTable() {
                   <td className="ol-name">{o.name}</td>
                   <td className="ol-address">{o.address}</td>
                   <td className="ol-muted">{o.date}</td>
-                  <td className="ol-muted">{o.type}</td>
+                  <td className="ol-muted">{t(`categories.${o.type}`) || o.type}</td>
                   <td>
-                    <span className={statusClass(o.status)}>{t(o.status)}</span>
+                    <span className={statusClass(o.status)}>{t(`statuses.${o.status}`)}</span>
                   </td>
                 </tr>
               ))}

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@/app/contexts/ThemeContext";
 import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 type HeaderProps = {
     onMenuClick?: () => void;
@@ -52,7 +53,8 @@ const notifications: Notification[] = [
 export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps) {
     const router = useRouter();
     const { theme, toggleTheme } = useTheme();
-    const { language, toggleLanguage, t } = useLanguage();
+    const { language, toggleLanguage } = useLanguage();
+    const { t } = useTranslation();
     const [notificationOpen, setNotificationOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
     const [languageOpen, setLanguageOpen] = useState(false);
@@ -64,8 +66,12 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
     const languageButtonRef = useRef<HTMLButtonElement>(null);
     
     const handleMenuClick = () => {
-      if (onMenuClick) onMenuClick();
-      if (onMenuClickDesktop) onMenuClickDesktop();
+     
+      if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+        if (onMenuClick) onMenuClick();
+      } else {
+        if (onMenuClickDesktop) onMenuClickDesktop();
+      }
     };
 
     const toggleNotification = () => {
@@ -157,7 +163,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
   
           <div className="ds-search">
             <i className="bi bi-search ds-search__icon" />
-            <input className="ds-search__input" placeholder={t("search")} />
+            <input className="ds-search__input" placeholder={t("header.search")} />
           </div>
         </div>
 
@@ -177,24 +183,41 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
             {notificationOpen && (
               <div className="ds-notification-dropdown" ref={notificationRef}>
                 <div className="ds-notification-header">
-                  <h3 className="ds-notification-title">{t("notification")}</h3>
+                  <h3 className="ds-notification-title">{t("header.notification")}</h3>
                 </div>
                 
                 <div className="ds-notification-list">
-                  {notifications.map((notif) => (
-                    <div key={notif.id} className="ds-notification-item">
-                      <div 
-                        className="ds-notification-icon" 
-                        style={{ backgroundColor: notif.iconBg }}
-                      >
-                        <i className={`bi ${notif.icon}`} />
+                  {notifications.map((notif) => {
+                    let titleKey = "";
+                    let descKey = "";
+                    if (notif.title === "Settings") {
+                      titleKey = "header.settings";
+                      descKey = "header.updateDashboard";
+                    } else if (notif.title === "Event Update") {
+                      titleKey = "header.eventUpdate";
+                      descKey = "header.eventDateUpdate";
+                    } else if (notif.title === "Profile") {
+                      titleKey = "header.profile";
+                      descKey = "header.updateProfile";
+                    } else if (notif.title === "Application Error") {
+                      titleKey = "header.applicationError";
+                      descKey = "header.checkRunningApplication";
+                    }
+                    return (
+                      <div key={notif.id} className="ds-notification-item">
+                        <div 
+                          className="ds-notification-icon" 
+                          style={{ backgroundColor: notif.iconBg }}
+                        >
+                          <i className={`bi ${notif.icon}`} />
+                        </div>
+                        <div className="ds-notification-content">
+                          <div className="ds-notification-item-title">{t(titleKey)}</div>
+                          <div className="ds-notification-item-desc">{t(descKey)}</div>
+                        </div>
                       </div>
-                      <div className="ds-notification-content">
-                        <div className="ds-notification-item-title">{t(notif.title.toLowerCase().replace(/\s+/g, ''))}</div>
-                        <div className="ds-notification-item-desc">{t(notif.description.toLowerCase().replace(/\s+/g, ''))}</div>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 <div className="ds-notification-footer">
@@ -203,7 +226,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
                     className="ds-notification-see-all"
                     onClick={() => setNotificationOpen(false)}
                   >
-                    {t("seeAllNotification")}
+                    {t("header.seeAllNotification")}
                   </button>
                 </div>
               </div>
@@ -265,7 +288,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
               </span>
               <span className="ds-profile__text">
                 <span className="ds-profile__name">Moni Roy</span>
-                <span className="ds-profile__role">{t("admin")}</span>
+                <span className="ds-profile__role">{t("header.admin")}</span>
               </span>
               <i className="bi bi-chevron-down ds-profile__chev" />
             </button>
@@ -278,7 +301,7 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
                   onClick={handleLogout}
                 >
                   <i className="bi bi-box-arrow-right" />
-                  <span>{t("logout")}</span>
+                  <span>{t("header.logout")}</span>
                 </button>
               </div>
             )}

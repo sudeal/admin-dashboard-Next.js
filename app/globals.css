@@ -33,14 +33,18 @@ body {
   display: flex;
   min-height: 100vh;
   background: #f7f8fc;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
-/* Header üstte tam otursun diye padding'i 0 yaptık.
-   Sayfa içerik padding'i için .ds-content ekledik. */
 .ds-main {
   flex: 1;
   padding: 0;
   background: #f7f8fc;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .ds-content {
@@ -133,7 +137,7 @@ body {
   letter-spacing: 0.12em;
 }
 
-/* Collapsed sidebar (desktop only) */
+
 @media (min-width: 769px) {
   .ds-sidebar.is-collapsed {
     width: 80px;
@@ -249,7 +253,7 @@ body {
   border: 2px solid #ffffff;
 }
 
-/* Notification Dropdown */
+
 .ds-notification-wrapper {
   position: relative;
 }
@@ -534,22 +538,54 @@ body {
     z-index: 999;
     transition: left 0.3s ease;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    width: 280px !important; /* Mobilde her zaman tam genişlik */
   }
 
   .ds-sidebar.is-open {
     left: 0;
   }
 
+  /* Mobilde collapsed durumunu ignore et */
+  .ds-sidebar.is-collapsed {
+    width: 280px !important;
+    padding: 22px 18px !important;
+  }
+
+  .ds-sidebar.is-collapsed .ds-nav__text {
+    display: block !important;
+  }
+
+  .ds-sidebar.is-collapsed .ds-nav__link {
+    justify-content: flex-start !important;
+    padding: 12px 12px !important;
+  }
+
+  .ds-sidebar.is-collapsed .ds-divider {
+    margin: 18px 8px !important;
+  }
+
+  .ds-sidebar.is-collapsed .ds-section-title {
+    display: block !important;
+  }
+
   .ds-layout {
     flex-direction: column;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   .ds-main {
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
   .ds-content {
     padding: 16px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 }
 
@@ -821,6 +857,22 @@ body {
 }
 
 @media (max-width: 480px) {
+  .sd-card {
+    padding: 12px;
+  }
+
+  .sd-header {
+    padding: 14px;
+  }
+
+  .sd-title {
+    font-size: 16px;
+  }
+
+  .sd-table-wrap {
+    padding: 0;
+  }
+
   .sd-table {
     min-width: 600px;
     font-size: 11px;
@@ -896,6 +948,21 @@ body {
 }
 
 @media (max-width: 480px) {
+  .dd-card {
+    margin-top: 16px;
+  }
+
+  .dd-header {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dd-title {
+    font-size: 16px;
+  }
+
   .dd-chart-container {
     padding: 12px;
     height: 250px;
@@ -1192,15 +1259,15 @@ body {
 
   width: 100%; /* ✅ full width */
 
-  /* ✅ görseldeki gibi ferahlık: tablo kenarlara yapışmasın */
+  
   padding: 8px;
 }
 
-/* Wrap: küçük ekranda yatay scroll; büyük ekranda full genişlik */
+
 .ps-table-wrap {
   width: 100%;
-  overflow: auto; /* ✅ responsive: yatay scroll */
-  max-height: 720px; /* ✅ daha büyük alan (istersen 640'a dönebilirsin) */
+  overflow: auto; 
+  max-height: 720px; 
 }
 
 /* Tablo */
@@ -1210,11 +1277,11 @@ body {
   border-spacing: 0;
   font-size: 13px;
 
-  /* ✅ kolonlar ekranı doldursun, daha düzenli genişler */
+  
   table-layout: fixed;
 }
 
-/* ✅ taşma kontrolü: geniş ekranda bile düzenli dursun */
+
 .ps-table th,
 .ps-table td {
   white-space: nowrap;
@@ -1365,8 +1432,35 @@ body {
 }
 
 @media (max-width: 480px) {
+  .ps-page {
+    padding: 0;
+  }
+
+  .ps-page-title {
+    font-size: 20px;
+  }
+
+  .ps-topbar {
+    gap: 12px;
+  }
+
+  .ps-card {
+    padding: 12px;
+  }
+
   .ps-table {
     min-width: 700px;
+    font-size: 12px;
+  }
+
+  .ps-table thead th,
+  .ps-table tbody td {
+    padding: 8px 10px;
+  }
+
+  .ps-imgbox {
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -1389,19 +1483,51 @@ body {
 .p-grid {
   margin-top: 16px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1400px;
 }
 
 /* responsive */
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .p-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 900px) {
+  .p-grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
   }
 }
 @media (max-width: 640px) {
+  .ds-products {
+    padding: 0;
+  }
+
+  .ds-page-title {
+    font-size: 20px;
+  }
+
+  .ds-promo {
+    padding: 20px 16px;
+  }
+
+  .ds-promo__title {
+    font-size: 18px;
+  }
+
   .p-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .p-img-area {
+    height: 200px;
+  }
+
+  .p-body {
+    padding: 12px;
   }
 }
 
@@ -1411,23 +1537,26 @@ body {
   border-radius: 14px;
   box-shadow: 0 2px 12px rgba(17, 24, 39, 0.06);
   overflow: hidden;
+  max-width: 100%;
 }
 
 /* image section */
 .p-img-area {
   position: relative;
-  height: 210px;
+  height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
+  background: #f9fafb;
   overflow: hidden;
 }
 
 .p-img {
   width: 100%;
   height: 100%;
-  /*object-fit: cover; */
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /* mini arrows like screenshot */
@@ -1677,6 +1806,15 @@ body {
   background: #ffffff;
 }
 
+.ol-row-clickable {
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.ol-row-clickable:hover {
+  background-color: #f9fafb;
+}
+
 .ol-id {
   font-weight: 800;
   color: #111827;
@@ -1761,9 +1899,19 @@ body {
 }
 
 @media (max-width: 640px) {
+  .ol-page {
+    padding: 0;
+  }
+
+  .ol-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
   .ol-filters {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
   }
 
   .ol-filters__left {
@@ -1773,6 +1921,7 @@ body {
 
   .ol-select {
     width: 100%;
+    font-size: 13px;
   }
 
   .ol-divider {
@@ -1781,6 +1930,11 @@ body {
 
   .ol-reset {
     justify-content: flex-end;
+    width: 100%;
+  }
+
+  .ol-card {
+    padding: 12px;
   }
 
   .ol-table {
@@ -1881,6 +2035,14 @@ body {
   gap: 12px;
 }
 
+.od2-meta-left {
+  flex: 1;
+}
+
+.od2-meta-right {
+  flex-shrink: 0;
+}
+
 .od2-meta-line {
   font-size: 13px;
 }
@@ -1915,6 +2077,12 @@ body {
   display: grid;
   grid-template-columns: 1.2fr 1.2fr 1fr;
   gap: 18px;
+}
+
+.od2-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .od2-block-title {
@@ -2070,8 +2238,38 @@ body {
 }
 
 @media (max-width: 480px) {
+  .od2-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .od2-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .od2-title {
+    font-size: 16px;
+  }
+
+  .od2-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
   .od2-table {
     min-width: 600px;
+  }
+
+  .od2-imgbox {
+    width: 40px;
+    height: 40px;
+  }
+
+  .od2-card {
+    padding: 12px;
   }
 }
 
@@ -2100,8 +2298,7 @@ body {
   gap: 10px;
 }
 
-/* ❗ Artık textbox kaldırıldığı için bu class kullanılmayacak.
-   İstersen silebilirsin ama kalsa da sorun olmaz. */
+
 .td-input {
   width: 320px;
   height: 36px;
@@ -2370,6 +2567,49 @@ body {
 .td-modal__btn--primary {
   background: #7aa2ff;
   color: #ffffff;
+}
+
+/* Todo Modal Responsive */
+@media (max-width: 640px) {
+  .td-modal {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 14px 14px 0 0;
+    margin-top: auto;
+  }
+
+  .td-modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .td-modal__footer {
+    flex-direction: column-reverse;
+  }
+
+  .td-modal__btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .td-item {
+    padding: 0 12px;
+    height: 52px;
+  }
+
+  .td-text {
+    font-size: 12px;
+  }
+
+  .td-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .td-icon i {
+    font-size: 14px;
+  }
 }
 
 /* =========================
@@ -2856,6 +3096,87 @@ body {
   max-height: 200px !important;
   width: 100% !important;
   height: 100% !important;
+}
+
+/* Charts Responsive */
+@media (max-width: 1024px) {
+  .ch-chart-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ch-chart-section {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 200px;
+  }
+
+  .ch-pie-container {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ch-pie-section {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ch-card {
+    padding: 12px;
+  }
+
+  .ch-chart-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .ch-chart-section {
+    flex: 1 1 100%;
+    min-width: 100%;
+    height: 180px;
+  }
+
+  .ch-chart-section canvas {
+    height: 180px !important;
+    max-height: 180px !important;
+  }
+
+  .ch-pie-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .ch-pie-section {
+    flex: 1 1 100%;
+    min-width: 100%;
+    height: 250px;
+  }
+
+  .ch-pie-section canvas {
+    max-width: 250px !important;
+    max-height: 250px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ch-chart-section {
+    height: 150px;
+  }
+
+  .ch-chart-section canvas {
+    height: 150px !important;
+    max-height: 150px !important;
+  }
+
+  .ch-pie-section {
+    height: 200px;
+  }
+
+  .ch-pie-section canvas {
+    max-width: 200px !important;
+    max-height: 200px !important;
+  }
 }
 
 /* =========================
@@ -3742,18 +4063,42 @@ body {
   z-index: 1;
 }
 
+@media (max-width: 640px) {
+  .login-page {
+    padding: 16px;
+  }
+
+  .login-card {
+    padding: 32px 24px;
+  }
+}
+
 @media (max-width: 480px) {
   .login-card {
-    padding: 24px;
+    padding: 24px 20px;
     border-radius: 16px;
   }
 
   .login-title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .login-subtitle {
     font-size: 13px;
+  }
+
+  .login-form {
+    gap: 16px;
+  }
+
+  .login-input {
+    height: 44px;
+    font-size: 14px;
+  }
+
+  .login-submit {
+    height: 44px;
+    font-size: 14px;
   }
 }
 

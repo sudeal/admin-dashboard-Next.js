@@ -1,0 +1,178 @@
+{
+  "header": {
+    "search": "Search",
+    "notification": "Notification",
+    "seeAllNotification": "See all notification",
+    "settings": "Settings",
+    "updateDashboard": "Update Dashboard",
+    "eventUpdate": "Event Update",
+    "eventDateUpdate": "An event date update again",
+    "profile": "Profile",
+    "updateProfile": "Update your profile",
+    "applicationError": "Application Error",
+    "checkRunningApplication": "Check Your running application",
+    "logout": "Logout",
+    "admin": "Admin"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "totalUsers": "Total User",
+    "totalOrders": "Total Order",
+    "totalSales": "Total Sales",
+    "totalPending": "Total Pending",
+    "totalCustomers": "Total Customers",
+    "totalRevenue": "Total Revenue",
+    "dealsDetails": "Deals Details"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "editProduct": "Edit Product",
+    "favorites": "Favorites",
+    "inbox": "Inbox",
+    "orderLists": "Order Lists",
+    "productStock": "Product Stock",
+    "toDoList": "To Do List",
+    "contact": "Contact",
+    "pricing": "Pricing",
+    "charts": "Charts",
+    "calendar": "Calendar",
+    "pages": "PAGES"
+  },
+  "pricing": {
+    "basic": "Basic",
+    "standard": "Standard",
+    "premium": "Premium",
+    "monthlyCharge": "Monthly Charge",
+    "freeSetup": "Free Setup",
+    "bandwidthLimit": "Bandwidth Limit 10 GB",
+    "userConnection": "20 User Connection",
+    "analyticsReport": "Analytics Report",
+    "publicApiAccess": "Public API Access",
+    "pluginsIntegration": "Plugins Integration",
+    "customContentManagement": "Custom Content Management",
+    "getStarted": "Get Started",
+    "startFreeTrial": "Start Your 30 Day Free Trial"
+  },
+  "tables": {
+    "date": "Date",
+    "orderType": "Order Type",
+    "orderStatus": "Order Status",
+    "customer": "Customer",
+    "address": "Address",
+    "type": "Type",
+    "status": "Status",
+    "actions": "Actions",
+    "viewDetails": "View Details"
+  },
+  "statuses": {
+    "completed": "Completed",
+    "processing": "Processing",
+    "rejected": "Rejected",
+    "onHold": "On Hold",
+    "inTransit": "In Transit"
+  },
+  "filters": {
+    "filterBy": "Filter By",
+    "last30Days": "Last 30 days",
+    "thisYear": "This year",
+    "resetFilter": "Reset Filter"
+  },
+  "productStock": {
+    "searchProductName": "Search product name",
+    "image": "Image",
+    "productName": "Product Name",
+    "category": "Category",
+    "price": "Price",
+    "piece": "Piece",
+    "availableColor": "Available Color",
+    "action": "Action"
+  },
+  "charts": {
+    "barChart": "Bar Chart",
+    "pieChart": "Pie Chart",
+    "donutChart": "Donut Chart"
+  },
+  "todo": {
+    "addNewTask": "Add New Task",
+    "newTask": "New task:",
+    "enterTaskDescription": "Enter task description",
+    "cancel": "Cancel",
+    "okey": "Okey",
+    "noTasksYet": "No tasks yet."
+  },
+  "contact": {
+    "addNewContact": "Add New Contact",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "uploadPhoto": "Upload Photo",
+    "saveContact": "Save Contact"
+  },
+  "sales": {
+    "salesDetails": "Sales Details",
+    "orderId": "Order ID",
+    "product": "Product",
+    "qty": "Qty",
+    "unitPrice": "Unit Price",
+    "total": "Total",
+    "noSalesDataFound": "No sales data found."
+  },
+  "orders": {
+    "backToOrders": "Back to Orders",
+    "orderNotFound": "Order not found",
+    "orderNo": "Order No",
+    "shippingAddress": "Shipping Address",
+    "tracking": "Tracking",
+    "trackingNo": "Tracking No:",
+    "carrier": "Carrier:",
+    "orderItems": "Order Items",
+    "item": "Item",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "shipping": "Shipping",
+    "discount": "Discount",
+    "grandTotal": "Grand Total"
+  },
+  "products": {
+    "promoDate": "September 12-22",
+    "promoTitle": "Enjoy free home delivery in this <br /> summer",
+    "promoDescription": "Designer Dresses - Pick from trendy Designer Dress.",
+    "promoButton": "Get Started"
+  },
+  "categories": {
+    "Digital Product": "Digital Product",
+    "Fashion": "Fashion",
+    "Mobile": "Mobile",
+    "Accessory": "Accessory"
+  },
+  "calendar": {
+    "addNewEvent": "Add New Event",
+    "youAreGoingTo": "You are going to",
+    "seeMore": "See More",
+    "today": "Today",
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "allDay": "All Day",
+    "eventTitle": "Event Title",
+    "date": "Date",
+    "time": "Time",
+    "location": "Location",
+    "organization": "Organization",
+    "enterEventTitle": "Enter event title",
+    "enterLocation": "Enter location",
+    "enterOrganization": "Enter organization",
+    "cancel": "Cancel",
+    "addEvent": "Add Event",
+    "at": "at"
+  }
+}
+

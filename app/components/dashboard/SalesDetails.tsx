@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getOrderList, getOrderDetailsById, type OrderStatus } from "@/app/services/order-list.service";
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 type SalesItem = {
   orderId: string;
@@ -18,9 +18,8 @@ type SalesItem = {
 
 export default function SalesDetails() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const [salesItems, setSalesItems] = useState<SalesItem[]>([]);
-  const [selectedMonth, setSelectedMonth] = useState("October");
 
   useEffect(() => {
     async function loadSalesData() {
@@ -77,30 +76,21 @@ export default function SalesDetails() {
   return (
     <div className="sd-card">
       <div className="sd-header">
-        <h2 className="sd-title">{t("salesDetails")}</h2>
-        <select
-          className="sd-month-select"
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-        >
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
+        <h2 className="sd-title">{t("sales.salesDetails")}</h2>
       </div>
 
       <div className="sd-table-wrap">
         <table className="sd-table">
           <thead>
             <tr>
-              <th>{t("orderId")}</th>
-              <th>{t("customer")}</th>
-              <th>{t("product")}</th>
-              <th style={{ textAlign: "center" }}>{t("qty")}</th>
-              <th style={{ textAlign: "right" }}>{t("unitPrice")}</th>
-              <th style={{ textAlign: "right" }}>{t("total")}</th>
-              <th>{t("date")}</th>
-              <th>{t("status")}</th>
+              <th>{t("sales.orderId")}</th>
+              <th>{t("tables.customer")}</th>
+              <th>{t("sales.product")}</th>
+              <th style={{ textAlign: "center" }}>{t("sales.qty")}</th>
+              <th style={{ textAlign: "right" }}>{t("sales.unitPrice")}</th>
+              <th style={{ textAlign: "right" }}>{t("sales.total")}</th>
+              <th>{t("tables.date")}</th>
+              <th>{t("tables.status")}</th>
             </tr>
           </thead>
           <tbody>
@@ -123,7 +113,7 @@ export default function SalesDetails() {
                 <td style={{ textAlign: "right" }}>${item.total.toFixed(0)}</td>
                 <td className="sd-date">{item.date}</td>
                 <td>
-                  <span className={statusClass(item.status)}>{t(item.status)}</span>
+                  <span className={statusClass(item.status)}>{t(`statuses.${item.status}`)}</span>
                 </td>
               </tr>
             ))}
@@ -131,7 +121,7 @@ export default function SalesDetails() {
             {salesItems.length === 0 && (
               <tr>
                 <td colSpan={8} className="sd-empty">
-                  {t("noSalesDataFound")}
+                  {t("sales.noSalesDataFound")}
                 </td>
               </tr>
             )}

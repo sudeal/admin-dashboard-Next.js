@@ -10,7 +10,7 @@ import {
   ArcElement,
 } from "chart.js";
 import { Bar, Pie } from "react-chartjs-2";
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
 
@@ -98,7 +98,7 @@ const donutChartOptions = {
 };
 
 export default function ChartsPageView() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   
   const barLabels = (count: number) => Array.from({ length: count }, (_, i) => `Bar ${i + 1}`);
 
@@ -170,7 +170,7 @@ export default function ChartsPageView() {
     <div className="ch-page">
       {/* Bar Charts */}
       <div className="ch-card">
-        <div className="ch-card-title">{t("barChart")}</div>
+        <div className="ch-card-title">{t("charts.barChart")}</div>
         <div className="ch-chart-container">
           <div className="ch-chart-section">
             <Bar data={simpleBlueData} options={barChartOptions} />
@@ -189,7 +189,7 @@ export default function ChartsPageView() {
 
       {/* Pie Charts */}
       <div className="ch-card" style={{ marginTop: "20px" }}>
-        <div className="ch-card-title">{t("pieChart")}</div>
+        <div className="ch-card-title">{t("charts.pieChart")}</div>
         <div className="ch-pie-container">
           {pieCharts.map((pie, index) => (
             <div key={index} className="ch-pie-section">
@@ -201,7 +201,7 @@ export default function ChartsPageView() {
 
       {/* Donut Charts */}
       <div className="ch-card" style={{ marginTop: "20px" }}>
-        <div className="ch-card-title">{t("donutChart")}</div>
+        <div className="ch-card-title">{t("charts.donutChart")}</div>
         <div className="ch-pie-container">
           {donutCharts.map((donut, index) => (
             <div key={index} className="ch-pie-section">

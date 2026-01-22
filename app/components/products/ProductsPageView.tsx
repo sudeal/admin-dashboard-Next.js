@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { getProductStock, ProductStockItem } from "@/app/services/product-stock.service";
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 export default function ProductsPage() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const [products, setProducts] = useState<ProductStockItem[]>([]);
 
   useEffect(() => {
@@ -18,23 +18,21 @@ export default function ProductsPage() {
 
   return (
     <div className="ds-products">
-      <h1 className="ds-page-title">{t("products")}</h1>
+      <h1 className="ds-page-title">{t("sidebar.products")}</h1>
 
       <div className="ds-promo">
         
         <div className="ds-promo__content">
-          <div className="ds-promo__date">September 12-22</div>
+          <div className="ds-promo__date">{t("products.promoDate")}</div>
 
-          <div className="ds-promo__title">
-            Enjoy free home delivery in this <br /> summer
-          </div>
+          <div className="ds-promo__title" dangerouslySetInnerHTML={{ __html: t("products.promoTitle") }} />
 
           <div className="ds-promo__desc">
-            Designer Dresses - Pick from trendy Designer Dress.
+            {t("products.promoDescription")}
           </div>
 
           <button className="ds-promo__btn" type="button">
-            Get Started
+            {t("products.promoButton")}
           </button>
         </div>
 
@@ -97,7 +95,7 @@ export default function ProductsPage() {
               </div>
 
               <button className="p-edit-btn" type="button">
-                {t("editProduct")}
+                {t("sidebar.editProduct")}
               </button>
             </div>
           </div>

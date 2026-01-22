@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Line } from "react-chartjs-2";
+import useTranslation from "@/app/hooks/useTranslation";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -26,8 +26,7 @@ ChartJS.register(
 );
 
 export default function DealsDetails() {
-  const [selectedMonth, setSelectedMonth] = useState("October");
-
+  const { t } = useTranslation();
   
   const usdData = [
     28.2, 28.1, 28.0, 28.5, 29.5, 29.3, 29.2, 29.8, 30.1, 30.4, 30.6, 30.8,
@@ -148,16 +147,7 @@ export default function DealsDetails() {
   return (
     <div className="dd-card">
       <div className="dd-header">
-        <h2 className="dd-title">Deals Details</h2>
-        <select
-          className="dd-month-select"
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-        >
-          <option value="October">October</option>
-          <option value="November">November</option>
-          <option value="December">December</option>
-        </select>
+        <h2 className="dd-title">{t("dashboard.dealsDetails")}</h2>
       </div>
 
       <div className="dd-chart-container">

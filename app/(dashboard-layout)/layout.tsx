@@ -15,6 +15,10 @@ export default function DashboardLayout({
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+    // Mobilde sidebar açıldığında collapsed'ı false yap
+    if (!sidebarOpen) {
+      setSidebarCollapsed(false);
+    }
   };
 
   const toggleSidebarCollapsed = () => {

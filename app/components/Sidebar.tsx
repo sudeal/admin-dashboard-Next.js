@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 type NavItem = {
   labelKey: string;
@@ -37,11 +37,11 @@ export default function Sidebar({
   isCollapsed = false,
 }: SidebarProps) {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { t } = useTranslation();
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    // "/orders" aktifken "/orders/00001" de aktif say
+    
     return pathname === href || pathname.startsWith(`${href}/`) || pathname.startsWith(href);
   };
 
@@ -70,7 +70,7 @@ export default function Sidebar({
               >
                 <i className={`bi ${item.icon} ds-nav__icon`} />
                 {!isCollapsed && (
-                  <span className="ds-nav__text">{t(item.labelKey)}</span>
+                  <span className="ds-nav__text">{t(`sidebar.${item.labelKey}`)}</span>
                 )}
               </Link>
             </li>
@@ -79,7 +79,7 @@ export default function Sidebar({
 
         <hr className="ds-divider" />
 
-        {!isCollapsed && <div className="ds-section-title">{t("pages")}</div>}
+        {!isCollapsed && <div className="ds-section-title">{t("sidebar.pages")}</div>}
 
         <ul className="ds-nav__list">
           {pageItems.map((item) => (
@@ -90,7 +90,7 @@ export default function Sidebar({
               >
                 <i className={`bi ${item.icon} ds-nav__icon`} />
                 {!isCollapsed && (
-                  <span className="ds-nav__text">{t(item.labelKey)}</span>
+                  <span className="ds-nav__text">{t(`sidebar.${item.labelKey}`)}</span>
                 )}
               </Link>
             </li>

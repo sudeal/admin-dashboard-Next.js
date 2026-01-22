@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 type TodoItem = {
   id: string;
@@ -53,7 +53,7 @@ export default function TodoListView() {
   
   const [modalOpen, setModalOpen] = useState(false);
   const [newText, setNewText] = useState("");
-  const { t } = useLanguage();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fromLs = loadTodos();
@@ -127,10 +127,10 @@ export default function TodoListView() {
   return (
     <div className="td-page">
       <div className="td-topbar">
-        <h1 className="td-title">{t("toDoList")}</h1>
+        <h1 className="td-title">{t("sidebar.toDoList")}</h1>
 
         <button className="td-add-btn" type="button" onClick={openModal}>
-          {t("addNewTask")}
+          {t("todo.addNewTask")}
         </button>
       </div>
 
@@ -170,7 +170,7 @@ export default function TodoListView() {
           </div>
         ))}
 
-        {sorted.length === 0 && <div className="td-empty">No tasks yet.</div>}
+        {sorted.length === 0 && <div className="td-empty">{t("todo.noTasksYet")}</div>}
       </div>
 
     
@@ -178,19 +178,19 @@ export default function TodoListView() {
         <div className="td-modal-overlay" role="dialog" aria-modal="true" onMouseDown={closeModal}>
           <div className="td-modal" onMouseDown={(e) => e.stopPropagation()}>
             <div className="td-modal__header">
-              <div className="td-modal__title">Add New Task</div>
+              <div className="td-modal__title">{t("todo.addNewTask")}</div>
               <button className="td-modal__close" type="button" onClick={closeModal} aria-label="Close">
                 <i className="bi bi-x" />
               </button>
             </div>
 
             <div className="td-modal__body">
-              <div className="td-modal__label">New task:</div>
+              <div className="td-modal__label">{t("todo.newTask")}</div>
               <input
                 className="td-modal__input"
                 value={newText}
                 onChange={(e) => setNewText(e.target.value)}
-                placeholder="Enter task description"
+                placeholder={t("todo.enterTaskDescription")}
                 autoFocus
                 onKeyDown={(e) => {
                   if (e.key === "Enter") addTask();
@@ -201,10 +201,10 @@ export default function TodoListView() {
 
             <div className="td-modal__footer">
               <button className="td-modal__btn td-modal__btn--ghost" type="button" onClick={closeModal}>
-                Cancel
+                {t("todo.cancel")}
               </button>
               <button className="td-modal__btn td-modal__btn--primary" type="button" onClick={addTask}>
-                Okey
+                {t("todo.okey")}
               </button>
             </div>
           </div>

@@ -1,0 +1,178 @@
+{
+  "header": {
+    "search": "Ara",
+    "notification": "Bildirim",
+    "seeAllNotification": "Tüm bildirimleri gör",
+    "settings": "Ayarlar",
+    "updateDashboard": "Dashboard'u Güncelle",
+    "eventUpdate": "Etkinlik Güncellemesi",
+    "eventDateUpdate": "Bir etkinlik tarihi tekrar güncellendi",
+    "profile": "Profil",
+    "updateProfile": "Profilinizi güncelleyin",
+    "applicationError": "Uygulama Hatası",
+    "checkRunningApplication": "Çalışan uygulamanızı kontrol edin",
+    "logout": "Çıkış",
+    "admin": "Yönetici"
+  },
+  "dashboard": {
+    "dashboard": "Gösterge Paneli",
+    "totalUsers": "Toplam Kullanıcı",
+    "totalOrders": "Toplam Sipariş",
+    "totalSales": "Toplam Satış",
+    "totalPending": "Toplam Bekleyen",
+    "totalCustomers": "Toplam Müşteri",
+    "totalRevenue": "Toplam Gelir",
+    "dealsDetails": "Anlaşma Detayları"
+  },
+  "sidebar": {
+    "dashboard": "Gösterge Paneli",
+    "products": "Ürünler",
+    "editProduct": "Ürünü Düzenle",
+    "favorites": "Favoriler",
+    "inbox": "Gelen Kutusu",
+    "orderLists": "Sipariş Listeleri",
+    "productStock": "Ürün Stoğu",
+    "toDoList": "Yapılacaklar Listesi",
+    "contact": "İletişim",
+    "pricing": "Fiyatlandırma",
+    "charts": "Grafikler",
+    "calendar": "Takvim",
+    "pages": "SAYFALAR"
+  },
+  "pricing": {
+    "basic": "Temel",
+    "standard": "Standart",
+    "premium": "Premium",
+    "monthlyCharge": "Aylık Ücret",
+    "freeSetup": "Ücretsiz Kurulum",
+    "bandwidthLimit": "Bant Genişliği Limiti 10 GB",
+    "userConnection": "20 Kullanıcı Bağlantısı",
+    "analyticsReport": "Analitik Raporu",
+    "publicApiAccess": "Genel API Erişimi",
+    "pluginsIntegration": "Eklenti Entegrasyonu",
+    "customContentManagement": "Özel İçerik Yönetimi",
+    "getStarted": "Başla",
+    "startFreeTrial": "30 Günlük Ücretsiz Denemenizi Başlatın"
+  },
+  "tables": {
+    "date": "Tarih",
+    "orderType": "Sipariş Türü",
+    "orderStatus": "Sipariş Durumu",
+    "customer": "Müşteri",
+    "address": "Adres",
+    "type": "Tür",
+    "status": "Durum",
+    "actions": "İşlemler",
+    "viewDetails": "Detayları Görüntüle"
+  },
+  "statuses": {
+    "completed": "Tamamlandı",
+    "processing": "İşleniyor",
+    "rejected": "Reddedildi",
+    "onHold": "Beklemede",
+    "inTransit": "Taşınımda"
+  },
+  "filters": {
+    "filterBy": "Filtrele",
+    "last30Days": "Son 30 gün",
+    "thisYear": "Bu yıl",
+    "resetFilter": "Filtreyi Sıfırla"
+  },
+  "productStock": {
+    "searchProductName": "Ürün adını ara",
+    "image": "Resim",
+    "productName": "Ürün Adı",
+    "category": "Kategori",
+    "price": "Fiyat",
+    "piece": "Adet",
+    "availableColor": "Mevcut Renk",
+    "action": "İşlem"
+  },
+  "charts": {
+    "barChart": "Çubuk Grafik",
+    "pieChart": "Pasta Grafik",
+    "donutChart": "Halka Grafik"
+  },
+  "todo": {
+    "addNewTask": "Yeni Görev Ekle",
+    "newTask": "Yeni görev:",
+    "enterTaskDescription": "Görev açıklaması girin",
+    "cancel": "İptal",
+    "okey": "Tamam",
+    "noTasksYet": "Henüz görev yok."
+  },
+  "contact": {
+    "addNewContact": "Yeni Kişi Ekle",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "dateOfBirth": "Doğum Tarihi",
+    "gender": "Cinsiyet",
+    "male": "Erkek",
+    "female": "Kadın",
+    "other": "Diğer",
+    "uploadPhoto": "Fotoğraf Yükle",
+    "saveContact": "Kişiyi Kaydet"
+  },
+  "sales": {
+    "salesDetails": "Satış Detayları",
+    "orderId": "Sipariş ID",
+    "product": "Ürün",
+    "qty": "Miktar",
+    "unitPrice": "Birim Fiyat",
+    "total": "Toplam",
+    "noSalesDataFound": "Satış verisi bulunamadı."
+  },
+  "orders": {
+    "backToOrders": "Siparişlere Dön",
+    "orderNotFound": "Sipariş bulunamadı",
+    "orderNo": "Sipariş No",
+    "shippingAddress": "Teslimat Adresi",
+    "tracking": "Takip",
+    "trackingNo": "Takip No:",
+    "carrier": "Kargo:",
+    "orderItems": "Sipariş Öğeleri",
+    "item": "Öğe",
+    "quantity": "Miktar",
+    "subtotal": "Ara Toplam",
+    "tax": "Vergi",
+    "shipping": "Kargo",
+    "discount": "İndirim",
+    "grandTotal": "Genel Toplam"
+  },
+  "products": {
+    "promoDate": "12-22 Eylül",
+    "promoTitle": "Bu yaz ücretsiz eve teslimatın <br /> keyfini çıkarın",
+    "promoDescription": "Tasarımcı Elbiseler - Trend tasarımcı elbiselerden seçin.",
+    "promoButton": "Başla"
+  },
+  "categories": {
+    "Digital Product": "Dijital Ürün",
+    "Fashion": "Moda",
+    "Mobile": "Mobil",
+    "Accessory": "Aksesuar"
+  },
+  "calendar": {
+    "addNewEvent": "Yeni Etkinlik Ekle",
+    "youAreGoingTo": "Gideceğiniz etkinlikler",
+    "seeMore": "Daha Fazla Gör",
+    "today": "Bugün",
+    "day": "Gün",
+    "week": "Hafta",
+    "month": "Ay",
+    "allDay": "Tüm Gün",
+    "eventTitle": "Etkinlik Başlığı",
+    "date": "Tarih",
+    "time": "Saat",
+    "location": "Konum",
+    "organization": "Organizasyon",
+    "enterEventTitle": "Etkinlik başlığı girin",
+    "enterLocation": "Konum girin",
+    "enterOrganization": "Organizasyon girin",
+    "cancel": "İptal",
+    "addEvent": "Etkinlik Ekle",
+    "at": "saatinde"
+  }
+}
+

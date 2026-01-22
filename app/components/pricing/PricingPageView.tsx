@@ -1,49 +1,49 @@
 "use client";
 
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 export default function PricingPage() {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const plans = [
     {
-      name: t("basic"),
+      name: t("pricing.basic"),
       price: "$14.99",
       features: [
-        { text: t("freeSetup"), active: true },
-        { text: t("bandwidthLimit"), active: true },
-        { text: t("userConnection"), active: true },
-        { text: t("analyticsReport"), active: false },
-        { text: t("publicApiAccess"), active: false },
-        { text: t("pluginsIntegration"), active: false },
-        { text: t("customContentManagement"), active: false },
+        { text: t("pricing.freeSetup"), active: true },
+        { text: t("pricing.bandwidthLimit"), active: true },
+        { text: t("pricing.userConnection"), active: true },
+        { text: t("pricing.analyticsReport"), active: false },
+        { text: t("pricing.publicApiAccess"), active: false },
+        { text: t("pricing.pluginsIntegration"), active: false },
+        { text: t("pricing.customContentManagement"), active: false },
       ],
       ctaFilled: false,
     },
     {
-      name: t("standard"),
+      name: t("pricing.standard"),
       price: "$49.99",
       features: [
-        { text: t("freeSetup"), active: true },
-        { text: t("bandwidthLimit"), active: true },
-        { text: t("userConnection"), active: true },
-        { text: t("analyticsReport"), active: true },
-        { text: t("publicApiAccess"), active: true },
-        { text: t("pluginsIntegration"), active: false },
-        { text: t("customContentManagement"), active: false },
+        { text: t("pricing.freeSetup"), active: true },
+        { text: t("pricing.bandwidthLimit"), active: true },
+        { text: t("pricing.userConnection"), active: true },
+        { text: t("pricing.analyticsReport"), active: true },
+        { text: t("pricing.publicApiAccess"), active: true },
+        { text: t("pricing.pluginsIntegration"), active: false },
+        { text: t("pricing.customContentManagement"), active: false },
       ],
       ctaFilled: false,
     },
     {
-      name: t("premium"),
+      name: t("pricing.premium"),
       price: "$89.99",
       features: [
-        { text: t("freeSetup"), active: true },
-        { text: t("bandwidthLimit"), active: true },
-        { text: t("userConnection"), active: true },
-        { text: t("analyticsReport"), active: true },
-        { text: t("publicApiAccess"), active: true },
-        { text: t("pluginsIntegration"), active: true },
-        { text: t("customContentManagement"), active: true },
+        { text: t("pricing.freeSetup"), active: true },
+        { text: t("pricing.bandwidthLimit"), active: true },
+        { text: t("pricing.userConnection"), active: true },
+        { text: t("pricing.analyticsReport"), active: true },
+        { text: t("pricing.publicApiAccess"), active: true },
+        { text: t("pricing.pluginsIntegration"), active: true },
+        { text: t("pricing.customContentManagement"), active: true },
       ],
       ctaFilled: false,
     },
@@ -51,7 +51,7 @@ export default function PricingPage() {
   
     return (
       <div className="pr-page">
-        <h1 className="pr-title">{t("pricing")}</h1>
+        <h1 className="pr-title">{t("sidebar.pricing")}</h1>
   
         <div className="pr-grid">
           {plans.map((p) => (
@@ -63,7 +63,7 @@ export default function PricingPage() {
   
               <div className="pr-head">
                 <div className="pr-name">{p.name}</div>
-                <div className="pr-sub">{t("monthlyCharge")}</div>
+                <div className="pr-sub">{t("pricing.monthlyCharge")}</div>
                 <div className="pr-price">{p.price}</div>
               </div>
   
@@ -85,10 +85,10 @@ export default function PricingPage() {
                   type="button"
                   className={`pr-btn ${p.ctaFilled ? "is-filled" : ""}`}
                 >
-                  {t("getStarted")}
+                  {t("pricing.getStarted")}
                 </button>
 
-                <div className="pr-trial">{t("startFreeTrial")}</div>
+                <div className="pr-trial">{t("pricing.startFreeTrial")}</div>
               </div>
             </div>
           ))}

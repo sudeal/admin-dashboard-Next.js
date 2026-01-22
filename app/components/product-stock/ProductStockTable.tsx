@@ -3,12 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ProductStockItem } from "@/app/services/product-stock.service";
 import { getProductStock } from "@/app/services/product-stock.service";
-import { useLanguage } from "@/app/contexts/LanguageContext";
+import useTranslation from "@/app/hooks/useTranslation";
 
 export default function ProductStockTable() {
   const [items, setItems] = useState<ProductStockItem[]>([]);
   const [query, setQuery] = useState("");
-  const { t } = useLanguage();
+  const { t } = useTranslation();
 
   useEffect(() => {
     getProductStock().then(setItems);
@@ -23,13 +23,13 @@ export default function ProductStockTable() {
   return (
     <div className="ps-page">
       <div className="ps-topbar">
-        <h1 className="ps-page-title">{t("productStock")}</h1>
+        <h1 className="ps-page-title">{t("sidebar.productStock")}</h1>
 
         <div className="ps-search">
           <i className="bi bi-search ps-search__icon" />
           <input
             className="ps-search__input"
-            placeholder={t("searchProductName")}
+            placeholder={t("productStock.searchProductName")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -41,13 +41,13 @@ export default function ProductStockTable() {
           <table className="ps-table">
             <thead>
               <tr>
-                <th style={{ width: 120 }}>{t("image")}</th>
-                <th>{t("productName")}</th>
-                <th style={{ width: 170 }}>{t("category")}</th>
-                <th style={{ width: 140 }}>{t("price")}</th>
-                <th style={{ width: 120 }}>{t("piece")}</th>
-                <th style={{ width: 220 }}>{t("availableColor")}</th>
-                <th style={{ width: 140, textAlign: "right" }}>{t("action")}</th>
+                <th style={{ width: 120 }}>{t("productStock.image")}</th>
+                <th>{t("productStock.productName")}</th>
+                <th style={{ width: 170 }}>{t("productStock.category")}</th>
+                <th style={{ width: 140 }}>{t("productStock.price")}</th>
+                <th style={{ width: 120 }}>{t("productStock.piece")}</th>
+                <th style={{ width: 220 }}>{t("productStock.availableColor")}</th>
+                <th style={{ width: 140, textAlign: "right" }}>{t("productStock.action")}</th>
               </tr>
             </thead>
 
@@ -62,7 +62,7 @@ export default function ProductStockTable() {
                   </td>
 
                   <td className="ps-name">{p.name}</td>
-                  <td className="ps-muted">{p.category}</td>
+                  <td className="ps-muted">{t(`categories.${p.category}`) || p.category}</td>
                   <td className="ps-price">${p.price.toFixed(2)}</td>
                   <td>{p.piece}</td>
 
