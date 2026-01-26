@@ -107,37 +107,23 @@ export default function Header({ onMenuClick, onMenuClickDesktop }: HeaderProps)
     
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
-        
-        if (
-          notificationOpen &&
-          notificationRef.current &&
-          !notificationRef.current.contains(event.target as Node) &&
-          notificationButtonRef.current &&
-          !notificationButtonRef.current.contains(event.target as Node)
-        ) {
-          setNotificationOpen(false);
-        }
+        const dropdowns = [
+          { isOpen: notificationOpen, ref: notificationRef.current, buttonRef: notificationButtonRef.current, close: setNotificationOpen },
+          { isOpen: profileOpen, ref: profileRef.current, buttonRef: profileButtonRef.current, close: setProfileOpen },
+          { isOpen: languageOpen, ref: languageRef.current, buttonRef: languageButtonRef.current, close: setLanguageOpen }
+        ];
 
-        
-        if (
-          profileOpen &&
-          profileRef.current &&
-          !profileRef.current.contains(event.target as Node) &&
-          profileButtonRef.current &&
-          !profileButtonRef.current.contains(event.target as Node)
-        ) {
-          setProfileOpen(false);
-        }
-
-        if (
-          languageOpen &&
-          languageRef.current &&
-          !languageRef.current.contains(event.target as Node) &&
-          languageButtonRef.current &&
-          !languageButtonRef.current.contains(event.target as Node)
-        ) {
-          setLanguageOpen(false);
-        }
+        dropdowns.forEach(({ isOpen, ref, buttonRef, close }) => {
+          if (
+            isOpen &&
+            ref &&
+            !ref.contains(event.target as Node) &&
+            buttonRef &&
+            !buttonRef.contains(event.target as Node)
+          ) {
+            close(false);
+          }
+        });
       };
 
       if (notificationOpen || profileOpen || languageOpen) {
