@@ -15,7 +15,6 @@ export default function DashboardLayout({
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
-    // Mobilde sidebar açıldığında collapsed'ı false yap
     if (!sidebarOpen) {
       setSidebarCollapsed(false);
     }
@@ -32,24 +31,24 @@ export default function DashboardLayout({
   return (
     <ThemeProvider>
       <main className="min-h-screen bg-white dark:bg-gray-900">
-          <div className="ds-layout">
-            <div
-              className={`ds-sidebar-overlay ${sidebarOpen ? "is-active" : ""}`}
-              onClick={closeSidebar}
+        <div className="ds-layout">
+          <div
+            className={`ds-sidebar-overlay ${sidebarOpen ? "is-active" : ""}`}
+            onClick={closeSidebar}
+          />
+
+          <Sidebar isOpen={sidebarOpen} isCollapsed={sidebarCollapsed} />
+
+          <section className="ds-main">
+            <Header
+              onMenuClick={toggleSidebar}
+              onMenuClickDesktop={toggleSidebarCollapsed}
             />
 
-            <Sidebar isOpen={sidebarOpen} isCollapsed={sidebarCollapsed} />
-
-            <section className="ds-main">
-              <Header
-                onMenuClick={toggleSidebar}
-                onMenuClickDesktop={toggleSidebarCollapsed}
-              />
-
-              <div className="ds-content">{children}</div>
-            </section>
-          </div>
-        </main>
-      </ThemeProvider>
+            <div className="ds-content">{children}</div>
+          </section>
+        </div>
+      </main>
+    </ThemeProvider>
   );
 }

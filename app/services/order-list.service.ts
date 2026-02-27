@@ -16,29 +16,22 @@ export type OrderItem = {
   status: OrderStatus;
 };
 
-/** id normalize: decode, trim, remove '#', remove path segments, pad numeric */
 function normalizeOrderId(raw: string) {
   let t = String(raw ?? "");
 
-  // URL encode edilmiş gelebilir
   try {
     t = decodeURIComponent(t);
   } catch {
-    // ignore
   }
 
   t = t.trim();
 
-  // "#00001" gibi
   if (t.startsWith("#")) t = t.slice(1);
 
-  // "orders/00001" gibi yanlışlıkla path gelirse son segmenti al
   if (t.includes("/")) t = t.split("/").filter(Boolean).pop() ?? t;
 
-  // sadece rakam ise 5 haneye tamamla
   if (/^\d+$/.test(t)) return t.padStart(5, "0");
 
-  // "00001 " gibi her şeyden sonra tekrar trim
   return t.trim();
 }
 
@@ -128,11 +121,9 @@ export async function getOrderById(id: string) {
   const list = await getOrderList();
   const normalized = normalizeOrderId(id);
 
-  // normal eşleşme
   const direct = list.find((o) => o.id === normalized);
   if (direct) return direct;
 
-  // bazen "0001" gibi gelirse diye ikinci şans: sadece rakamları alıp pad
   const digits = normalized.replace(/\D/g, "");
   if (digits) {
     const padded = digits.padStart(5, "0");
@@ -141,10 +132,6 @@ export async function getOrderById(id: string) {
 
   return null;
 }
-
-/* =========================
-   ORDER DETAILS
-========================= */
 
 export type OrderLine = {
   productId: string;
@@ -190,7 +177,6 @@ export async function getOrderDetailsById(
 
   const products = await getProductStock();
 
-  // deterministic ürün seçimi (her order id için farklı kombinasyon)
   const n = Number(normalized) || 1;
   const pick = (i: number) => products[i % products.length];
 

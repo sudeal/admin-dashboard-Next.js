@@ -24,7 +24,6 @@ const tooltipCallback = (context: any) => {
   return `${label || dataset.label || 'Değer'}: ${value} (${percentage}%)`;
 };
 
-// Helper: Bar chart dataset oluşturma
 const createBarDataset = (
   data: number[],
   backgroundColor: string,
@@ -51,7 +50,6 @@ const createPieData = (labels: string[], data: number[], backgroundColor: string
   datasets: [{ data, backgroundColor, borderWidth: 0 }],
 });
 
-// Bar Chart Options
 const barChartOptions = {
   responsive: true,
   maintainAspectRatio: false,
@@ -99,7 +97,7 @@ const donutChartOptions = {
 
 export default function ChartsPageView() {
   const { t } = useTranslation();
-  
+
   const barLabels = (count: number) => Array.from({ length: count }, (_, i) => `Bar ${i + 1}`);
 
   const simpleBlueData = {
@@ -135,7 +133,7 @@ export default function ChartsPageView() {
   const pinkValues = [38, 52, 47, 44, 56, 49, 61];
   const pinkColors = ["#ec4899", "#f472b6", "#fbcfe8", "#fdf2f8"];
   const divideIntoFour = (value: number) => value / 4;
-  
+
   const gradientPinkData = {
     labels: barLabels(7),
     datasets: pinkColors.map((color, index) => ({
@@ -143,14 +141,14 @@ export default function ChartsPageView() {
         pinkValues.map(divideIntoFour),
         color,
         index === 0 ? { borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } } :
-        index === 3 ? { borderRadius: { topLeft: 6, topRight: 6, bottomLeft: 0, bottomRight: 0 } } :
-        { borderRadius: 0 }
+          index === 3 ? { borderRadius: { topLeft: 6, topRight: 6, bottomLeft: 0, bottomRight: 0 } } :
+            { borderRadius: 0 }
       ),
       label: `Pembe ${index + 1}${index === 0 ? ' (Koyu)' : index === 3 ? ' (Açık)' : ''}`,
     })),
   };
 
-  
+
   const pieCharts = [
     { data: [32, 68], colors: ["#3b82f6", "#f3f4f6"] },
     { data: [45, 55], colors: ["#a855f7", "#f3f4f6"] },
@@ -158,7 +156,7 @@ export default function ChartsPageView() {
     { data: [38, 62], colors: ["#60a5fa", "#f3f4f6"] },
   ];
 
- 
+
   const donutCharts = [
     { labels: ["Teal", "Empty"], data: [63, 37], colors: ["#14b8a6", "#e5e7eb"] },
     { labels: ["Empty", "Blue", "Orange"], data: [42, 38, 20], colors: ["#e5e7eb", "#3b82f6", "#f59e0b"] },
@@ -168,7 +166,6 @@ export default function ChartsPageView() {
 
   return (
     <div className="ch-page">
-      {/* Bar Charts */}
       <div className="ch-card">
         <div className="ch-card-title">{t("charts.barChart")}</div>
         <div className="ch-chart-container">
@@ -187,7 +184,6 @@ export default function ChartsPageView() {
         </div>
       </div>
 
-      {/* Pie Charts */}
       <div className="ch-card" style={{ marginTop: "20px" }}>
         <div className="ch-card-title">{t("charts.pieChart")}</div>
         <div className="ch-pie-container">
@@ -199,7 +195,6 @@ export default function ChartsPageView() {
         </div>
       </div>
 
-      {/* Donut Charts */}
       <div className="ch-card" style={{ marginTop: "20px" }}>
         <div className="ch-card-title">{t("charts.donutChart")}</div>
         <div className="ch-pie-container">

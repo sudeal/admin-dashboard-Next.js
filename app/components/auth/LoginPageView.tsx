@@ -12,8 +12,6 @@ export default function LoginPageView() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Login işlemi buraya eklenecek
-    // Şimdilik dashboard'a yönlendiriyoruz
     router.push("/");
   };
 
@@ -45,7 +43,6 @@ export default function LoginPageView() {
                 type="button"
                 className="login-forgot"
                 onClick={() => {
-                  // Forgot password işlemi
                 }}
               >
                 Forget Password?

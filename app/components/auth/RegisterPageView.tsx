@@ -13,8 +13,6 @@ export default function RegisterPageView() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Register işlemi buraya eklenecek
-    // Şimdilik dashboard'a yönlendiriyoruz
     router.push("/");
   };
 
@@ -58,7 +56,6 @@ export default function RegisterPageView() {
                 type="button"
                 className="login-forgot"
                 onClick={() => {
-                  // Forgot password işlemi
                 }}
               >
                 Forget Password?

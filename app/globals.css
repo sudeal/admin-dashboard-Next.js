@@ -43,7 +43,7 @@ body {
   padding: 0;
   background: #f7f8fc;
   width: 100%;
-  max-width: 100%;
+  max-width: 100vw;
   overflow-x: hidden;
 }
 
